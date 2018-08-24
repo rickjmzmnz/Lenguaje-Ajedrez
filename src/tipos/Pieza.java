@@ -1,6 +1,7 @@
 package src.tipos;
 
-public class Pieza{
+public class Pieza
+{
 
     //Color de la pieza
     private Color color;
@@ -13,23 +14,25 @@ public class Pieza{
      * Constructor vacío
      * Representa una casilla libre
      */
-    public Pieza(){
-    }
+    public Pieza(){}
 
     /*
      * Constructor de la clase Pieza
      */
-    public Pieza(Color color,String nombre){
-	     for(String nombrePieza: nombrePieza){
-	        if(nombre.equals(nombrePieza)){
+    public Pieza(Color color,String nombre)
+    {
+	     for(String nombrePieza: nombrePieza) {
+	        if(nombre.equals(nombrePieza)) {
 		          this.color = color;
 		          this.nombre = nombre;
 		      return;
 	        }
 	     }
+
 	     System.out.println("Error: No se puede definir la pieza = " + nombre);
 	     System.out.println("Las piezas disponibles son: ");
-	     for(String nombrePieza: nombrePieza){
+
+       for(String nombrePieza: nombrePieza) {
 	           System.out.println(nombrePieza);
 	     }
      }
@@ -38,14 +41,16 @@ public class Pieza{
      * Obtiene el color de la pieza
      * @return - el color de la pieza
      */
-    public Color getColorPieza(){
+    public Color getColorPieza()
+    {
 	     return this.color;
     }
 
     /*
      * Asigna un color a la pieza
      */
-    public void setColorPieza(Color color){
+    public void setColorPieza(Color color)
+    {
 	     this.color = color;
     }
 
@@ -53,23 +58,27 @@ public class Pieza{
      * Obtiene el nombre de la pieza
      * @return - el nombre de la pieza
      */
-    public String getNombrePieza(){
+    public String getNombrePieza()
+    {
 	     return this.nombre;
     }
 
     /*
      * Asigna un nombre a la pieza
      */
-    public void setNombrePieza(String nombre){
-	     for(String nombrePieza: nombrePieza){
-	        if(nombre.equals(nombrePieza)){
+    public void setNombrePieza(String nombre)
+    {
+	     for(String nombrePieza: nombrePieza) {
+	        if(nombre.equals(nombrePieza)) {
 		          this.nombre = nombre;
 		          return;
 	        }
 	     }
+
 	     System.out.println("Error: No se puede definir la pieza = " + nombre);
 	     System.out.println("Las piezas disponibles son: ");
-	     for(String nombrePieza: nombrePieza){
+
+       for(String nombrePieza: nombrePieza) {
 	        System.out.println(nombrePieza);
 	     }
     }
@@ -79,15 +88,18 @@ public class Pieza{
      * @return -  la pieza en cadena
      */
     @Override
-    public String toString(){
-	     if(this.getColorPieza() == null){
+    public String toString()
+    {
+	     if(this.getColorPieza() == null) {
 	        return "-";
-	     }else{
+	     } else {
+
 	        Color colPieza = this.getColorPieza();
 	        String nomPieza = this.getNombrePieza();
 	        String color = colPieza.getColor();
 	        String pieza = selecPieza(color,nomPieza);
 	        return pieza;
+
 	     }
      }
 
@@ -96,52 +108,72 @@ public class Pieza{
       * Regresa su representación en cadena según las convenciones del ajedrez
       * @return - la abreviación de la pieza según su color
       */
-     public static String selecPieza(String color,String pieza){
-       String nombre = "";
-       if(color.equals("Black")){
-         switch (pieza) {
-            case "Pawn":
-              nombre = "P";
-              break;
-            case "Rook":
-              nombre = "R";
-              break;
-            case "Bishop":
-              nombre = "B";
-              break;
-            case "Queen":
-              nombre = "Q";
-              break;
-            case "Knight":
-              nombre = "N";
-              break;
-            case "King":
-              nombre = "K";
-              break;
+     public static String selecPieza(String color,String pieza)
+     {
+         String nombre = "";
+
+         if(color.equals("Black")) {
+
+           switch (pieza) {
+
+              case "Pawn":
+                nombre = "P";
+                break;
+
+              case "Rook":
+                nombre = "R";
+                break;
+
+              case "Bishop":
+                nombre = "B";
+                break;
+
+              case "Queen":
+                nombre = "Q";
+                break;
+
+              case "Knight":
+                nombre = "N";
+                break;
+
+              case "King":
+                nombre = "K";
+                break;
+           }
+
+         } else {
+
+           switch (pieza) {
+
+              case "Pawn":
+                nombre = "p";
+                break;
+
+              case "Rook":
+                nombre = "r";
+                break;
+
+              case "Bishop":
+                nombre = "b";
+                break;
+
+              case "Queen":
+                nombre = "q";
+                break;
+
+              case "Knight":
+                nombre = "n";
+                break;
+
+              case "King":
+                nombre = "k";
+                break;
+
+           }
+
          }
-       } else {
-         switch (pieza) {
-            case "Pawn":
-              nombre = "p";
-              break;
-            case "Rook":
-              nombre = "r";
-              break;
-            case "Bishop":
-              nombre = "b";
-              break;
-            case "Queen":
-              nombre = "q";
-              break;
-            case "Knight":
-              nombre = "n";
-              break;
-            case "King":
-              nombre = "k";
-              break;
-         }
-       }
-       return nombre;
+
+         return nombre;
      }
 
 }

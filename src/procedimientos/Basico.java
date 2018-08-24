@@ -1,30 +1,21 @@
 package src.procedimientos;
 
-//import tipos.Casilla;
-//import tipos.Color;
-//import tipos.Columna;
-//import tipos.Lista;
-//import tipos.Movimiento;
-//import tipos.Pieza;
-//import tipos.Posicion;
-//import tipos.Predicado;
-//import tipos.Renglon;
-//import tipos.Tablero;
-
 import src.tipos.*;
 import src.auxiliares.*;
 
-public class Basico{
+public class Basico
+{
 
     /* PENDIENTE
      * Dada una posicion del tablero y un movimiento que se quiere realizar
      * Se verifica si es posible realizar el movimiento
      */
-    public static Predicado posible(Posicion posicion,Movimiento movimiento) {
-        Casilla casillaDestino = movimiento.getCasillaDestino();
-        Casilla casillaOrigen = movimiento.getCasillaOrigen();
-        Pieza piezaDes = Pieza(casillaDestino, posicion);
-        Pieza piezaOri = Pieza(casillaOrigen, posicion);
+    public static Predicado posible(Posicion pos,Movimiento mov)
+    {
+        Casilla casDes = mov.getCasillaDestino();
+        Casilla casOri = mov.getCasillaOrigen();
+        Pieza piezaDes = Pieza(casDes, pos);
+        Pieza piezaOri = Pieza(casOri, pos);
         Predicado pred = null;
 
         if(piezaDes.getColorPieza() == null || !piezaDes.getColorPieza().equals(piezaOri.getColorPieza())) {
@@ -37,23 +28,23 @@ public class Basico{
 
     }
 
-    public static Lista<Casilla> camino(Movimiento mov, Posicion pos) {
-
+    public static Lista<Casilla> camino(Movimiento mov, Posicion pos)
+    {
         Lista<Casilla> lista = new Lista<Casilla>();
         Tablero tablero = pos.getPosicion();
         Pieza[][] config = tablero.getTablero();
 
         Casilla casOri = mov.getCasillaOrigen();
         Columna colOri = casOri.getColumna();
-        int posColOri = MovimientoPieza.posicionColumna(colOri);
+        int posColOri = Transformacion.posicionColumna(colOri);
         Renglon renOri = casOri.getRenglon();
-        int posRenOri = MovimientoPieza.posicionRenglon(renOri);
+        int posRenOri = Transformacion.posicionRenglon(renOri);
 
         Casilla casDes = mov.getCasillaDestino();
         Columna colDes = casDes.getColumna();
-        int posColDes = MovimientoPieza.posicionColumna(colDes);
+        int posColDes = Transformacion.posicionColumna(colDes);
         Renglon renDes = casDes.getRenglon();
-        int posRenDes = MovimientoPieza.posicionRenglon(renDes);
+        int posRenDes = Transformacion.posicionRenglon(renDes);
 
         int colNuevo = 0;
         int renNuevo = 0;
@@ -66,8 +57,8 @@ public class Basico{
             while(cont < posColDes) {
 
                 colNuevo = cont;
-                Casilla casilla = MovimientoPieza.toRepresent(posRenOri, colNuevo);
-                lista.agrega(casilla);
+                Casilla cas = Transformacion.toCasilla(posRenOri, colNuevo);
+                lista.agrega(cas);
                 cont = cont + 1;
 
             }
@@ -81,8 +72,8 @@ public class Basico{
             while(cont < posRenDes) {
 
                 renNuevo = cont;
-                Casilla casilla = MovimientoPieza.toRepresent(renNuevo, posColOri);
-                lista.agrega(casilla);
+                Casilla cas = Transformacion.toCasilla(renNuevo, posColOri);
+                lista.agrega(cas);
                 cont = cont + 1;
 
             }
@@ -97,49 +88,54 @@ public class Basico{
      * Dada una posición del tablero
      * Se obtienen todos los movimientos posibles a partir de él
      */
-    public static Lista<Movimiento> Movimientos(Posicion posicion) {
-      Lista<Movimiento> lista = new Lista<Movimiento>();
-      Tablero tablero = posicion.getPosicion();
-      Pieza[][] configuracion = tablero.getTablero();
+    public static Lista<Movimiento> Movimientos(Posicion pos)
+    {
+        Lista<Movimiento> lista = new Lista<Movimiento>();
+        Tablero tablero = pos.getPosicion();
+        Pieza[][] config = tablero.getTablero();
 
-      for(int i = 0; i < 8; i++) {
-         for(int j = 0; j < 8; j++) {
+        for(int i = 0; i < 8; i++) {
+           for(int j = 0; j < 8; j++) {
 
-              Pieza pieza = configuracion[i][j];
-              Casilla casilla = MovimientoPieza.toRepresent(i,j);
+                Pieza pieza = config[i][j];
+                Casilla cas = Transformacion.toCasilla(i,j);
 
-              if(pieza.getColorPieza() == null) {
-                  continue;
-              } else {
-                  Lista<Movimiento> movs = movimientoPieza(pieza, casilla);
+                if(pieza.getColorPieza() == null) {
+                    continue;
+                } else {
+                    Lista<Movimiento> movs = movimientoPieza(pieza, cas);
 
-                  for(int k = 0; k < movs.longitud(); k++) {
+                    for(int k = 0; k < movs.longitud(); k++) {
 
-                      Movimiento mov = movs.obtenElem(k);
-                      if(posible(posicion, mov).getValor() == true){
-                          lista.agrega(mov);
-                      }
-                  }
-              }
+                        Movimiento mov = movs.obtenElem(k);
+                        if(posible(pos, mov).getValor() == true){
+                            lista.agrega(mov);
+                        }
 
-         }
-      }
+                    }
 
-      return lista;
+                }
+
+           }
+        }
+
+        return lista;
     }
 
     /*
      * Obtiene la casilla donde parte un movimiento
      */
-    public static Casilla Origen(Movimiento movimiento) {
-        return movimiento.getCasillaOrigen();
+    public static Casilla Origen(Movimiento mov)
+    {
+        return mov.getCasillaOrigen();
     }
 
     /*
      * Obtiene el color de la pieza
      * @return - el color de la pieza
      */
-    public static Color Color(Pieza pieza) {
+    public static Color Color(Pieza pieza)
+    {
         return pieza.getColorPieza();
     }
 
@@ -147,31 +143,39 @@ public class Basico{
      * Dado un color, se obtiene el contrario
      * @return - el otro color
      */
-    public static Color Otro(Color color) {
-      String actual = color.getColor();
-      if(actual.equals("White")){
-          String otro = "Black";
-          Color nuevo = new Color(otro);
-          return nuevo;
-      }else{
-          String otro = "White";
-          Color nuevo  = new Color(otro);
-          return nuevo;
-      }
+    public static Color Otro(Color color)
+    {
+        String actual = color.getColor();
+
+        if(actual.equals("White")) {
+
+            String otro = "Black";
+            Color nuevo = new Color(otro);
+            return nuevo;
+
+        } else {
+
+            String otro = "White";
+            Color nuevo  = new Color(otro);
+            return nuevo;
+
+        }
+
     }
 
     /*
      * Dada una posicion del tablero y una casilla
      * Se obtiene la pieza que se encuentra en dicha casilla del tablero
      */
-    public static Pieza Pieza(Casilla casilla,Posicion posicion){
-        Renglon renglon = casilla.getRenglon();
-        Columna columna = casilla.getColumna();
-        int numRenglon = MovimientoPieza.posicionRenglon(renglon);
-        int numColumna = MovimientoPieza.posicionColumna(columna);
-        Tablero tablero = posicion.getPosicion();
-        Pieza[][] configuracion = tablero.getTablero();
-        Pieza pieza = configuracion[numRenglon][numColumna];
+    public static Pieza Pieza(Casilla cas,Posicion pos)
+    {
+        Renglon ren = cas.getRenglon();
+        Columna col = cas.getColumna();
+        int numRen = Transformacion.posicionRenglon(ren);
+        int numCol = Transformacion.posicionColumna(col);
+        Tablero tablero = pos.getPosicion();
+        Pieza[][] config = tablero.getTablero();
+        Pieza pieza = config[numRen][numCol];
         return pieza;
     }
 
@@ -179,80 +183,56 @@ public class Basico{
      * Dada una pieza y una casilla
      * Se regresan los movimientos posibles de esa pieza
      */
-    public static Lista<Movimiento> movimientoPieza(Pieza pieza,Casilla origen){
-      Lista<Movimiento> lista = new Lista<Movimiento>();
-      String nombrePieza = pieza.getNombrePieza();
-      Color colorPieza = pieza.getColorPieza();
-      String nombreColor = colorPieza.getColor();
-      Renglon renglon = origen.getRenglon();
-      Columna columna = origen.getColumna();
-      int numRenglon = MovimientoPieza.posicionRenglon(renglon);
-      int numColumna = MovimientoPieza.posicionColumna(columna);
+    public static Lista<Movimiento> movimientoPieza(Pieza pieza,Casilla origen)
+    {
+        Lista<Movimiento> lista = new Lista<Movimiento>();
+        Lista<Casilla> listaCas = null;
 
-      if(nombrePieza.equals("Pawn")){
-          Lista<Casilla> listaCas = MovimientoPieza.peon(numRenglon,numColumna,nombreColor);
-          for(int i = 0; i < listaCas.longitud(); i++) {
-              Casilla casilla = listaCas.obtenElem(i);
-              Movimiento movimiento = new Movimiento(origen, casilla);
-              lista.agrega(movimiento);
-          }
-      }
+        String nombrePieza = pieza.getNombrePieza();
+        Color colorPieza = pieza.getColorPieza();
+        String nombreColor = colorPieza.getColor();
+        Renglon ren = origen.getRenglon();
+        Columna col = origen.getColumna();
+        int numRen = Transformacion.posicionRenglon(ren);
+        int numCol = Transformacion.posicionColumna(col);
 
-      if(nombrePieza.equals("Knight")){
-          Lista<Casilla> listaCas = MovimientoPieza.caballo(numRenglon,numColumna);
-          int longitud = listaCas.longitud();
-          for(int i = 0; i < longitud; i++){
-              Casilla casilla = listaCas.obtenElem(i);
-              Movimiento movimiento = new Movimiento(origen,casilla);
-              lista.agrega(movimiento);
-          }
-          return lista;
-      }
+        switch(nombrePieza) {
 
-      if(nombrePieza.equals("Bishop")){
-          Lista<Casilla> listaCas = MovimientoPieza.alfil(numRenglon,numColumna);
-          int longitud = listaCas.longitud();
-          for(int i = 0; i < longitud; i++){
-              Casilla casilla = listaCas.obtenElem(i);
-              Movimiento movimiento = new Movimiento(origen,casilla);
-              lista.agrega(movimiento);
-          }
-          return lista;
-      }
+            case "Pawn":
+                listaCas = MovimientoPieza.peon(numRen,numCol,nombreColor);
+                break;
 
-      if(nombrePieza.equals("Rook")){
-          Lista<Casilla> listaCas = MovimientoPieza.torre(numRenglon,numColumna);
-          int longitud = listaCas.longitud();
-          for(int i = 0; i < longitud; i++){
-              Casilla casilla = listaCas.obtenElem(i);
-              Movimiento movimiento = new Movimiento(origen,casilla);
-              lista.agrega(movimiento);
-          }
-          return lista;
-      }
+            case "Knight":
+                listaCas = MovimientoPieza.caballo(numRen,numCol);
+                break;
 
-      if(nombrePieza.equals("Queen")){
-          Lista<Casilla> listaCas = MovimientoPieza.reina(numRenglon,numColumna);
-          int longitud = listaCas.longitud();
-          for(int i = 0; i < longitud; i++){
-              Casilla casilla = listaCas.obtenElem(i);
-              Movimiento movimiento = new Movimiento(origen,casilla);
-              lista.agrega(movimiento);
-          }
-          return lista;
-      }
+            case "Bishop":
+                listaCas = MovimientoPieza.alfil(numRen,numCol);
+                break;
 
-      if(nombrePieza.equals("King")){
-          Lista<Casilla> listaCas = MovimientoPieza.rey(numRenglon,numColumna);
-          int longitud = listaCas.longitud();
-          for(int i = 0; i < longitud; i++){
-              Casilla casilla = listaCas.obtenElem(i);
-              Movimiento movimiento = new Movimiento(origen,casilla);
-              lista.agrega(movimiento);
-          }
-          return lista;
-      }
-      return lista;
+            case "Rook":
+                listaCas = MovimientoPieza.torre(numRen,numCol);
+                break;
+
+            case "Queen":
+                listaCas = MovimientoPieza.reina(numRen,numCol);
+                break;
+
+            case "King":
+                listaCas = MovimientoPieza.rey(numRen,numCol);
+                break;
+
+        }
+
+        for(int i = 0; i < listaCas.longitud(); i++) {
+
+            Casilla cas = listaCas.obtenElem(i);
+            Movimiento mov = new Movimiento(origen, cas);
+            lista.agrega(mov);
+
+        }
+
+        return lista;
     }
 
 }

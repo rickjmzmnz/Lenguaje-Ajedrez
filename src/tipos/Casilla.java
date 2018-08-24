@@ -1,6 +1,7 @@
 package src.tipos;
 
-public class Casilla{
+public class Casilla
+{
 
     //Renglon de la casilla
     private Renglon renglon;
@@ -10,13 +11,13 @@ public class Casilla{
     /*
      * Constructor vacio de la clase Casilla
      */
-    public Casilla(){
-    }
+    public Casilla(){}
 
     /*
      * Constructor de la clase Casilla
      */
-    public Casilla(Columna columna,Renglon renglon){
+    public Casilla(Columna columna,Renglon renglon)
+    {
 	     this.renglon = renglon;
 	     this.columna = columna;
     }
@@ -25,14 +26,16 @@ public class Casilla{
      * Obtiene el renglon de la casilla
      * @return - el renglon de la casilla
      */
-    public Renglon getRenglon(){
+    public Renglon getRenglon()
+    {
 	     return this.renglon;
     }
 
     /*
      * Asigna un renglon a la casilla
      */
-    public void setRenglon(Renglon renglon){
+    public void setRenglon(Renglon renglon)
+    {
 	     this.renglon = renglon;
     }
 
@@ -40,14 +43,16 @@ public class Casilla{
      * Obtiene la columna de la casilla
      * @return - la columna de la casilla
      */
-    public Columna getColumna(){
+    public Columna getColumna()
+    {
 	     return this.columna;
     }
 
     /*
      * Asigna una columna a la casilla
      */
-    public void setColumna(Columna columna){
+    public void setColumna(Columna columna)
+    {
 	     this.columna = columna;
     }
 
@@ -56,7 +61,8 @@ public class Casilla{
      * @return - la casilla en cadena
      */
     @Override
-    public String toString(){
+    public String toString()
+    {
 	     Renglon renglon = this.getRenglon();
 	     Columna columna = this.getColumna();
 	     int nomRen = renglon.getNumRenglon();

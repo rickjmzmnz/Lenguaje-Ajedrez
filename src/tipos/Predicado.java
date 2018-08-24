@@ -1,6 +1,7 @@
 package src.tipos;
 
-public class Predicado{
+public class Predicado
+{
 
     //Valor de verdad del predicado
     private boolean valor;
@@ -8,7 +9,8 @@ public class Predicado{
     /*
      * Constructor de la clase Predicado
      */
-    public Predicado(boolean valor){
+    public Predicado(boolean valor)
+    {
 	     this.valor = valor;
     }
 
@@ -16,14 +18,16 @@ public class Predicado{
      * Obtiene el valor de verdad del predicado
      * @return - el valor de verdad del predicado
      */
-    public boolean getValor(){
+    public boolean getValor()
+    {
 	     return this.valor;
     }
 
     /*
      * Asigna un valor de verdad al predicado
      */
-    public void setValor(boolean valor){
+    public void setValor(boolean valor)
+    {
 	     this.valor = valor;
     }
 
