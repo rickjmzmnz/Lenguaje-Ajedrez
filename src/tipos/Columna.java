@@ -8,8 +8,9 @@ public class Columna
     //Arreglo con las columnas disponibles
     private String[] nombres = {"a","b","c","d","e","f","g","h"};
 
-    /*
+    /**
      * Constructor de la clase Columna
+     * @param nomColumna el nombre de la columna
      */
     public Columna(String nomColumna)
     {
@@ -24,17 +25,18 @@ public class Columna
 	      System.out.println("El nombre de la columna debe de ser entre a y h");
     }
 
-    /*
+    /**
      * Obtiene el nombre de la columna
-     * @return - el nombre de la columna
+     * @return el nombre de la columna
      */
     public String getNomColumna()
     {
 	     return this.nomColumna;
     }
 
-    /*
+    /**
      * Define un nuevo nombre a la columna
+     * @param nomColumna el nuevo nombre
      */
     public void setNomColumna(String nomColumna)
     {

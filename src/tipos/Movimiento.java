@@ -8,9 +8,11 @@ public class Movimiento
     //Casilla donde termina el movimiento
     private Casilla casillaDestino;
 
-    /*
+    /**
      * Constructor de la clase Movimiento
      * Verifica que no se quede en la misma casilla al hacer el movimiento
+     * @param casOri la casilla origen
+     * @param casDes la casilla destino
      */
     public Movimiento(Casilla casOri, Casilla casDes)
     {
@@ -34,40 +36,46 @@ public class Movimiento
 	     }
     }
 
-    /*
+    /**
      * Obtiene la casilla de donde parte el movimiento
-     * @return - la casilla de donde parte el movimiento
+     * @return la casilla de donde parte el movimiento
      */
     public Casilla getCasillaOrigen()
     {
 	     return this.casillaOrigen;
     }
 
-    /*
+    /**
      * Asigna una nueva casilla de donde parte el movimiento
+     * @param casOri la nueva casilla origen
      */
     public void setCasillaOrigen(Casilla casOri)
     {
 	     this.casillaOrigen = casOri;
     }
 
-    /*
+    /**
      * Obtiene la casilla donde termina el movimiento
-     * @return - la casilla donde termina el movimiento
+     * @return la casilla donde termina el movimiento
      */
     public Casilla getCasillaDestino()
     {
 	     return this.casillaDestino;
     }
 
-    /*
+    /**
      * Asigna una nueva casilla donde termina el movimiento
+     * @param casDes la nueva casilla destino
      */
     public void setCasillaDestino(Casilla casDes)
     {
 	     this.casillaDestino = casDes;
     }
 
+    /**
+     * Representacion en cadena de un movimiento
+     * @return la cadena que representa el origen y destino del movimiento
+     */
     @Override
     public String toString()
     {

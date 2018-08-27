@@ -8,8 +8,9 @@ public class Color
     //Arreglo con el color que pueden tener las piezas
     private String[] colores = {"White","Black"};
 
-    /*
+    /**
      * Constructor de la clase Color
+     * @param color el color (White o Black)
      */
     public Color(String color)
     {
@@ -24,17 +25,18 @@ public class Color
 	     System.out.println("Sólo se puede definir el color White o Black");
     }
 
-    /*
+    /**
      * Obtiene el color de la pieza
-     * @return - el color de la pieza
+     * @return el color de la pieza
      */
     public String getColor()
     {
 	     return this.color;
     }
 
-    /*
+    /**
      * Se le asigna un color a la pieza
+     * @param color el nuevo color
      */
     public void setColor(String color)
     {
@@ -49,6 +51,10 @@ public class Color
 	     System.out.println("Sólo se puede definir el color Blanco o Negro");
     }
 
+    /**
+     * Representacion en cadena del color
+     * @return el color actual
+     */
     @Override
     public String toString()
     {

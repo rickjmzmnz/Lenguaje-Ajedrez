@@ -6,14 +6,21 @@ import src.auxiliares.Transformacion;
 public class MovimientoPieza
 {
 
-  /*
-   * Movimiento de un peon
+  /**
+   * Regresa los movimientos que podría realizar un peón
+   * Dada una posición en el tablero
+   * @param ren el renglón de la casilla
+   * @param col la columna de la casilla
+   * @param color el color de la pieza
+   * @param config el tablero actual
+   * @return una lista que contiene los movimientos del peón
    */
-  public static Lista<Casilla> peon(int ren,int col,String color)
+  public static Lista<Casilla> peon(int ren,int col,String color, Pieza[][] config)
   {
      Lista<Casilla> lista = new Lista<Casilla>();
      int renDes = 0;
      int colDes = 0;
+     Pieza pieza = null;
 
      if(color.equals("Black")) {
 
@@ -22,18 +29,36 @@ public class MovimientoPieza
              Casilla cas = Transformacion.toCasilla(renDes,col);
              lista.agrega(cas);
          }
+
          renDes = ren + 1;
          colDes = col + 1;
-
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
-             Casilla cas = Transformacion.toCasilla(renDes, colDes);
-             lista.agrega(cas);
+
+             pieza = config[renDes][colDes];
+             if(pieza.getColorPieza() != null) {
+
+                Casilla cas = Transformacion.toCasilla(renDes, colDes);
+                lista.agrega(cas);
+
+             }
          }
+
          renDes = ren + 1;
          colDes = col - 1;
-
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
-             Casilla cas = Transformacion.toCasilla(renDes, colDes);
+
+             pieza = config[renDes][colDes];
+             if(pieza.getColorPieza() != null) {
+
+                Casilla cas = Transformacion.toCasilla(renDes, colDes);
+                lista.agrega(cas);
+
+             }
+         }
+
+         if(ren == 1) {
+             ren = ren + 2;
+             Casilla cas = Transformacion.toCasilla(ren, col);
              lista.agrega(cas);
          }
 
@@ -44,27 +69,50 @@ public class MovimientoPieza
              Casilla cas = Transformacion.toCasilla(renDes,col);
              lista.agrega(cas);
          }
+
          renDes = ren - 1;
          colDes = col + 1;
-
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
-             Casilla cas = Transformacion.toCasilla(renDes, colDes);
-             lista.agrega(cas);
+
+             pieza = config[renDes][colDes];
+             if(pieza.getColorPieza() != null) {
+
+                Casilla cas = Transformacion.toCasilla(renDes, colDes);
+                lista.agrega(cas);
+
+             }
          }
+
          renDes = ren - 1;
          colDes = col - 1;
-
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
-             Casilla cas = Transformacion.toCasilla(renDes, colDes);
+             pieza = config[renDes][colDes];
+
+             if(pieza.getColorPieza() != null) {
+
+                Casilla cas = Transformacion.toCasilla(renDes, colDes);
+                lista.agrega(cas);
+
+             }
+         }
+
+         if(ren == 6) {
+             ren = ren - 2;
+             Casilla cas = Transformacion.toCasilla(ren, col);
              lista.agrega(cas);
          }
+
      }
 
      return lista;
   }
 
-  /*
-   * Movimientos de la torre
+  /**
+   * Regresa los movimientos que podría realizar una torre
+   * Dada una posición en el tablero
+   * @param ren el renglón de la casilla
+   * @param col la columna de la casilla
+   * @return una lista que contiene los movimientos de la torre
    */
  public static Lista<Casilla> torre(int ren, int col)
  {
@@ -107,9 +155,13 @@ public class MovimientoPieza
      return lista;
  }
 
-  /*
-   * Movimientos del caballo
-   */
+ /**
+  * Regresa los movimientos que podría realizar un caballo
+  * Dada una posición en el tablero
+  * @param ren el renglón de la casilla
+  * @param col la columna de la casilla
+  * @return una lista que contiene los movimientos del caballo
+  */
   public static Lista<Casilla> caballo(int ren,int col)
   {
      Lista<Casilla> lista = new Lista<Casilla>();
@@ -183,8 +235,12 @@ public class MovimientoPieza
      return lista;
   }
 
-  /*
-   * Movimientos del alfil
+  /**
+   * Regresa los movimientos que podría realizar un alfil
+   * Dada una posición en el tablero
+   * @param ren el renglón de la casilla
+   * @param col la columna de la casilla
+   * @return una lista que contiene los movimientos del alfil
    */
   public static Lista<Casilla> alfil(int ren,int col)
   {
@@ -235,8 +291,12 @@ public class MovimientoPieza
      return lista;
   }
 
-  /*
-   * Movimientos de la reina
+  /**
+   * Regresa los movimientos que podría realizar una reina
+   * Dada una posición en el tablero
+   * @param ren el renglón de la casilla
+   * @param col la columna de la casilla
+   * @return una lista que contiene los movimientos de la reina
    */
   public static Lista<Casilla> reina(int ren,int col)
   {
@@ -246,8 +306,12 @@ public class MovimientoPieza
      return listaTorre;
   }
 
-  /*
-   * Movimientos del rey
+  /**
+   * Regresa los movimientos que podría realizar un rey
+   * Dada una posición en el tablero
+   * @param ren el renglón de la casilla
+   * @param col la columna de la casilla
+   * @return una lista que contiene los movimientos del rey
    */
   public static Lista<Casilla> rey(int ren, int col)
   {
@@ -320,6 +384,8 @@ public class MovimientoPieza
 
   /**
    * Verifica que al hacer un movimiento no se salga del tablero
+   * @param rango el valor a verificar si se sale del tablero
+   * @return true si no se sale del tablero, false en otro caso
    */
   public static boolean verificaRango(int rango)
   {

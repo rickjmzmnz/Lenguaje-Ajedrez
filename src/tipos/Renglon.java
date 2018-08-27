@@ -6,8 +6,9 @@ public class Renglon
     //número del Renglon
     private int numRen;
 
-    /*
+    /**
      * Constructor de la clase Renglon
+     * @param numRen el numero del renglon
      */
     public Renglon(int numRen)
     {
@@ -19,17 +20,19 @@ public class Renglon
 	     }
     }
 
-    /*
+    /**
      * Obtiene el número delRenglon
-     * @return - el número del Renglon
+     * @return el número del Renglon
      */
     public int getNumRenglon()
     {
 	     return this.numRen;
     }
 
-    /*
+    /**
      * Asigna un nuevo número de Renglon
+     * El número debe estar en el intervalo [1,8]
+     * @param numRen el nuevo número
      */
     public void setNumRenglon(int numRen)
     {

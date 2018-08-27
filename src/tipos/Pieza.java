@@ -10,14 +10,16 @@ public class Pieza
     //Nombres de las piezas del juego
     private String[] nombrePieza = {"Pawn","Knight","Rook","Bishop","Queen","King"};
 
-    /*
+    /**
      * Constructor vacío
      * Representa una casilla libre
      */
     public Pieza(){}
 
-    /*
+    /**
      * Constructor de la clase Pieza
+     * @param color el color de la pieza
+     * @param nombre el nombre de la pieza
      */
     public Pieza(Color color,String nombre)
     {
@@ -37,34 +39,36 @@ public class Pieza
 	     }
      }
 
-    /*
+    /**
      * Obtiene el color de la pieza
-     * @return - el color de la pieza
+     * @return el color de la pieza
      */
     public Color getColorPieza()
     {
 	     return this.color;
     }
 
-    /*
+    /**
      * Asigna un color a la pieza
+     * @param color el nuevo color
      */
     public void setColorPieza(Color color)
     {
 	     this.color = color;
     }
 
-    /*
+    /**
      * Obtiene el nombre de la pieza
-     * @return - el nombre de la pieza
+     * @return el nombre de la pieza
      */
     public String getNombrePieza()
     {
 	     return this.nombre;
     }
 
-    /*
+    /**
      * Asigna un nombre a la pieza
+     * @param nombre el nuevo nombre
      */
     public void setNombrePieza(String nombre)
     {
@@ -83,9 +87,9 @@ public class Pieza
 	     }
     }
 
-    /*
+    /**
      * Obtiene una representación en cadena de la pieza
-     * @return -  la pieza en cadena
+     * @return la pieza en cadena
      */
     @Override
     public String toString()
@@ -103,10 +107,10 @@ public class Pieza
 	     }
      }
 
-     /*
+     /**
       * Dado el nombre de una pieza y su color
       * Regresa su representación en cadena según las convenciones del ajedrez
-      * @return - la abreviación de la pieza según su color
+      * @return la abreviación de la pieza según su color
       */
      public static String selecPieza(String color,String pieza)
      {

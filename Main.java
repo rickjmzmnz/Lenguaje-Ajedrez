@@ -13,7 +13,7 @@ public class Main{
 
     	 System.out.println(tablero.toString());
 
-       Lista<Movimiento> movs = Basico.Movimientos(posicion);
+       Lista<Movimiento> movs = Basico.movimientos(posicion);
        System.out.println(movs.toString());
     }
 }

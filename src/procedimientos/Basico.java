@@ -6,17 +6,33 @@ import src.auxiliares.*;
 public class Basico
 {
 
-    /* PENDIENTE
+    /**
      * Dada una posicion del tablero y un movimiento que se quiere realizar
      * Se verifica si es posible realizar el movimiento
+     * @param pos la posicion actual del tablero
+     * @param mov el movimiento a realizar
+     * @return un predicado indicando si es posible el movimiento
      */
     public static Predicado posible(Posicion pos,Movimiento mov)
     {
         Casilla casDes = mov.getCasillaDestino();
         Casilla casOri = mov.getCasillaOrigen();
-        Pieza piezaDes = Pieza(casDes, pos);
-        Pieza piezaOri = Pieza(casOri, pos);
+        Pieza piezaDes = pieza(casDes, pos);
+        Pieza piezaOri = pieza(casOri, pos);
         Predicado pred = null;
+
+        Lista<Casilla> camino = camino(mov, pos);
+
+        for(int i = 0; i < camino.longitud(); i++) {
+
+            Casilla casilla = camino.obtenElem(i);
+            Pieza pieza = pieza(casilla, pos);
+            if(pieza.getColorPieza() != null) {
+                pred = new Predicado(false);
+                return pred;
+            }
+
+        }
 
         if(piezaDes.getColorPieza() == null || !piezaDes.getColorPieza().equals(piezaOri.getColorPieza())) {
             pred = new Predicado(true);
@@ -28,6 +44,13 @@ public class Basico
 
     }
 
+    /**
+     * Obtiene las casillas por las que pasa una pieza al realizar un movimiento
+     * Nota: Se omiten las del caballo porque en realidad "salta" las casillas
+     * @param mov el movimiento realizado
+     * @param pos la posicion actual del tablero
+     * @return una lista con las casillas por la que pasa el movimiento
+     */
     public static Lista<Casilla> camino(Movimiento mov, Posicion pos)
     {
         Lista<Casilla> lista = new Lista<Casilla>();
@@ -50,16 +73,31 @@ public class Basico
         int renNuevo = 0;
         int cont = 0;
 
-        if(posRenOri == posRenDes) {
+        if(posRenOri == posRenOri) {
 
-            cont = posColOri + 1;
+            if(posColOri > posColDes) {
 
-            while(cont < posColDes) {
+                cont = posColOri - 1;
 
-                colNuevo = cont;
-                Casilla cas = Transformacion.toCasilla(posRenOri, colNuevo);
-                lista.agrega(cas);
-                cont = cont + 1;
+                while(cont > posColDes) {
+
+                      Casilla casilla = Transformacion.toCasilla(posRenOri, cont);
+                      lista.agrega(casilla);
+                      cont--;
+
+                }
+
+            } else {
+
+                cont = posColOri + 1;
+
+                while(cont < posColDes) {
+
+                    Casilla casilla = Transformacion.toCasilla(posRenOri, cont);
+                    lista.agrega(casilla);
+                    cont++;
+
+                }
 
             }
 
@@ -67,14 +105,77 @@ public class Basico
 
         if(posColOri == posColDes) {
 
-            cont = posRenOri + 1;
+            if(posRenOri > posRenDes) {
 
-            while(cont < posRenDes) {
+                cont = posRenOri - 1;
 
-                renNuevo = cont;
-                Casilla cas = Transformacion.toCasilla(renNuevo, posColOri);
-                lista.agrega(cas);
-                cont = cont + 1;
+                while(cont > posRenDes) {
+
+                    Casilla casilla = Transformacion.toCasilla(cont, posColOri);
+                    lista.agrega(casilla);
+                    cont--;
+
+                }
+
+            } else {
+
+                cont = posRenOri + 1;
+
+                while(cont < posRenDes) {
+
+                    Casilla casilla = Transformacion.toCasilla(cont, posColOri);
+                    lista.agrega(casilla);
+                    cont++;
+
+                }
+
+            }
+
+        }
+
+        if(posColOri != posColDes && posRenOri != posRenDes) {
+
+            if(posColOri > posColDes) {
+
+                int difCol = posColOri - posColDes;
+                int difRen = posRenDes - posRenOri;
+
+                if(difCol == difRen) {
+
+                    difCol = posColOri - 1;
+                    difRen = posRenOri + 1;
+
+                    while(difCol > posColDes) {
+
+                        Casilla casilla = Transformacion.toCasilla(difRen, difCol);
+                        lista.agrega(casilla);
+                        difCol--;
+                        difRen++;
+
+                    }
+
+                }
+
+            } else {
+
+                int difCol = posColDes - posColOri;
+                int difRen = posRenOri - posRenDes;
+
+                if(difCol == difRen) {
+
+                    difCol = posColOri + 1;
+                    difRen = posRenOri - 1;
+
+                    while(difCol < posColDes) {
+
+                        Casilla casilla = Transformacion.toCasilla(difRen, difCol);
+                        lista.agrega(casilla);
+                        difCol++;
+                        difRen--;
+
+                    }
+
+                }
 
             }
 
@@ -84,11 +185,13 @@ public class Basico
 
     }
 
-    /* PENDIENTE
+    /**
      * Dada una posición del tablero
      * Se obtienen todos los movimientos posibles a partir de él
+     * @param pos la posición actual del tablero
+     * @return una lista con todos los movimientos de las piezas del tablero
      */
-    public static Lista<Movimiento> Movimientos(Posicion pos)
+    public static Lista<Movimiento> movimientos(Posicion pos)
     {
         Lista<Movimiento> lista = new Lista<Movimiento>();
         Tablero tablero = pos.getPosicion();
@@ -103,7 +206,7 @@ public class Basico
                 if(pieza.getColorPieza() == null) {
                     continue;
                 } else {
-                    Lista<Movimiento> movs = movimientoPieza(pieza, cas);
+                    Lista<Movimiento> movs = movimientoPieza(pieza, cas, config);
 
                     for(int k = 0; k < movs.longitud(); k++) {
 
@@ -122,28 +225,32 @@ public class Basico
         return lista;
     }
 
-    /*
+    /**
      * Obtiene la casilla donde parte un movimiento
+     * @param mov el movimiento realizado
+     * @return la casilla de donde parte el movimiento
      */
-    public static Casilla Origen(Movimiento mov)
+    public static Casilla origen(Movimiento mov)
     {
         return mov.getCasillaOrigen();
     }
 
-    /*
+    /**
      * Obtiene el color de la pieza
-     * @return - el color de la pieza
+     * @param pieza la pieza a la que se le obtiene el color
+     * @return el color de la pieza
      */
-    public static Color Color(Pieza pieza)
+    public static Color color(Pieza pieza)
     {
         return pieza.getColorPieza();
     }
 
-    /*
+    /**
      * Dado un color, se obtiene el contrario
-     * @return - el otro color
+     * @param color el color a obtener el contrario
+     * @return el otro color
      */
-    public static Color Otro(Color color)
+    public static Color otro(Color color)
     {
         String actual = color.getColor();
 
@@ -163,11 +270,14 @@ public class Basico
 
     }
 
-    /*
+    /**
      * Dada una posicion del tablero y una casilla
      * Se obtiene la pieza que se encuentra en dicha casilla del tablero
+     * @param cas la casilla donde se quiere obtener la pieza
+     * @param pos la posición actual del tablero
+     * @return la pieza en la casilla
      */
-    public static Pieza Pieza(Casilla cas,Posicion pos)
+    public static Pieza pieza(Casilla cas,Posicion pos)
     {
         Renglon ren = cas.getRenglon();
         Columna col = cas.getColumna();
@@ -179,11 +289,15 @@ public class Basico
         return pieza;
     }
 
-    /*
+    /**
      * Dada una pieza y una casilla
      * Se regresan los movimientos posibles de esa pieza
+     * @param pieza la pieza de la que se obtendran los movimientos
+     * @param origen la casilla de donde se van a calcular los movimientos
+     * @param config la configuración actual del tablero
+     * @return una lista con los movimientos que realiza la pieza dada esa configuración
      */
-    public static Lista<Movimiento> movimientoPieza(Pieza pieza,Casilla origen)
+    public static Lista<Movimiento> movimientoPieza(Pieza pieza, Casilla origen, Pieza[][] config)
     {
         Lista<Movimiento> lista = new Lista<Movimiento>();
         Lista<Casilla> listaCas = null;
@@ -199,7 +313,7 @@ public class Basico
         switch(nombrePieza) {
 
             case "Pawn":
-                listaCas = MovimientoPieza.peon(numRen,numCol,nombreColor);
+                listaCas = MovimientoPieza.peon(numRen,numCol,nombreColor, config);
                 break;
 
             case "Knight":

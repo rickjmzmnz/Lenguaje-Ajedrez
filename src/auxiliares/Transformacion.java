@@ -5,10 +5,12 @@ import src.tipos.*;
 public class Transformacion
 {
 
-  /*
+  /**
    * Dado un Renglon
    * Se obtiene el entero que representa la posicion del renglon del Tablero
    * El tablero se representa como matriz
+   * @param ren el renglón a representar
+   * @return su valor correspondiente en la matriz
    */
   public static int posicionRenglon(Renglon ren)
   {
@@ -53,10 +55,12 @@ public class Transformacion
       return pos;
   }
 
-  /*
+  /**
    * Dada un Columna
    * Se obtiene el entero que representa la posicion de la columna del Tablero
    * El tablero se representa como matriz
+   * @param col la columna a representar
+   * @return su valor correspondiente en la matriz
    */
    public static int posicionColumna(Columna col)
    {
@@ -101,9 +105,12 @@ public class Transformacion
       return pos;
    }
 
-   /*
+   /**
     * Convierte el renglon y columna
     * De su representación matrizial a la que utiliza el tipo Casilla
+    * @param ren el valor del renglon en la matriz
+    * @param col el valor de la columna en la matriz
+    * @return la casilla correspondiente a los valores
     */
    public static Casilla toCasilla(int ren,int col)
    {

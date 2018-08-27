@@ -8,13 +8,15 @@ public class Casilla
     //Columna de la casilla
     private Columna columna;
 
-    /*
+    /**
      * Constructor vacio de la clase Casilla
      */
     public Casilla(){}
 
-    /*
+    /**
      * Constructor de la clase Casilla
+     * @param columna la columna de la casilla
+     * @param renglon el renglon de la casilla
      */
     public Casilla(Columna columna,Renglon renglon)
     {
@@ -22,43 +24,45 @@ public class Casilla
 	     this.columna = columna;
     }
 
-    /*
+    /**
      * Obtiene el renglon de la casilla
-     * @return - el renglon de la casilla
+     * @return el renglon de la casilla
      */
     public Renglon getRenglon()
     {
 	     return this.renglon;
     }
 
-    /*
+    /**
      * Asigna un renglon a la casilla
+     * @param renglon el nuevo renglon
      */
     public void setRenglon(Renglon renglon)
     {
 	     this.renglon = renglon;
     }
 
-    /*
+    /**
      * Obtiene la columna de la casilla
-     * @return - la columna de la casilla
+     * @return la columna de la casilla
      */
     public Columna getColumna()
     {
 	     return this.columna;
     }
 
-    /*
+    /**
      * Asigna una columna a la casilla
+     * @param columna la nueva columna
      */
     public void setColumna(Columna columna)
     {
 	     this.columna = columna;
     }
 
-    /*
+    /**
      * Regresa una representación en cadena de la casilla
-     * @return - la casilla en cadena
+     * @return la casilla en cadena
      */
     @Override
     public String toString()

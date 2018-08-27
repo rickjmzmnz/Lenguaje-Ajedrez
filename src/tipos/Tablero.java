@@ -6,8 +6,9 @@ public class Tablero
     //Matriz de dos dimensiones que representa el tablero de ajedrez
     private Pieza[][] tablero = new Pieza[8][8];
 
-    /*
+    /**
      * Constructor de la clase Tablero
+     * @param tablero la matriz que representa el tablero de ajedrez
      */
     public Tablero(Pieza[][] tablero)
     {
@@ -65,26 +66,27 @@ public class Tablero
       	this.tablero = tablero;
     }
 
-    /*
+    /**
      * Obtiene el tablero
-     * @return - el tablero
+     * @return el tablero
      */
     public Pieza[][] getTablero()
     {
 	     return this.tablero;
     }
 
-    /*
+    /**
      * Asigna una nueva configuracion del tablero
+     * @param tablero la nueva configuración
      */
     public void setTablero(Pieza[][] tablero)
     {
         this.tablero = tablero;
     }
 
-    /*
+    /**
      * Regresa una representación en cadena  del tablero
-     * @return - el tablero en cadena para pintarlo
+     * @return el tablero en cadena para pintarlo
      */
     @Override
     public String toString()
