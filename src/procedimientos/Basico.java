@@ -290,6 +290,52 @@ public class Basico
     }
 
     /**
+     * Obtiene el color de la pieza
+     * Que se encuentra en la casilla destino del movimiento
+     * @param mov el movimiento a realizar
+     * @param pos la configuración actual del tablero
+     * @return el color de la pieza en la casilla destino
+     */
+    public static Color cpd(Movimiento mov, Posicion pos)
+    {
+        Tablero tablero = pos.getPosicion();
+        Pieza[][] config = tablero.getTablero();
+        Casilla des = mov.getCasillaDestino();
+        Renglon ren = des.getRenglon();
+        Columna col = des.getColumna();
+        int numRen = Transformacion.posicionRenglon(ren);
+        int numCol = Transformacion.posicionColumna(col);
+        Pieza pieza = config[numRen][numCol];
+
+        if(pieza == null)
+            return null;
+        return pieza.getColorPieza();
+    }
+
+    /**
+     * Obtiene el color de la pieza
+     * Que se encuentra en la casilla origen del movimiento
+     * @param mov el movimiento a realizar
+     * @param pos la configuración actual del tablero
+     * @return el color de la pieza en la casilla origen
+     */
+    public static Color cpo(Movimiento mov, Posicion pos)
+    {
+        Tablero tablero = pos.getPosicion();
+        Pieza[][] config = tablero.getTablero();
+        Casilla des = mov.getCasillaOrigen();
+        Renglon ren = des.getRenglon();
+        Columna col = des.getColumna();
+        int numRen = Transformacion.posicionRenglon(ren);
+        int numCol = Transformacion.posicionColumna(col);
+        Pieza pieza = config[numRen][numCol];
+
+        if(pieza == null)
+            return null;
+        return pieza.getColorPieza();
+    }
+
+    /**
      * Dada una pieza y una casilla
      * Se regresan los movimientos posibles de esa pieza
      * @param pieza la pieza de la que se obtendran los movimientos
@@ -347,6 +393,33 @@ public class Basico
         }
 
         return lista;
+    }
+
+    /**
+     * Obtiene una lista de movimientos necesarios
+     * Para llegar a una casilla dada una configuración del tablero
+     * @param pieza la pieza a determinar sus movimientos
+     * @param cas la casilla a la que se debe de llegar
+     * @param pos la configuración actual del tablero
+     * @return la lista con los movimientos necesarios
+     */
+    public static Lista<Movimiento> movsPara(Pieza pieza, Casilla cas, Posicion pos)
+    {
+        Lista<Movimiento> lista = new Lista<Movimiento>();
+
+        Tablero tablero = pos.getPosicion();
+        Pieza[][] config = tablero.getTablero();
+
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+
+                Pieza piezaAct = config[i][j];
+                Casilla casAct = Transformacion.toCasilla(i,j);
+                //PENDIENTE
+            }
+        }
+
+        return lista; 
     }
 
 }
