@@ -61,4 +61,14 @@ public class Color
         return "El color de la pieza es: " + this.getColor();
     }
 
+    /**
+     * Verifica que un color sea igual a otro
+     * @param col el color a comparar
+     * @return true si son iguales, false en otro caso
+     */
+    public boolean equals(Color col)
+    {
+        return this.color.equals(col.color);
+    }
+
 }

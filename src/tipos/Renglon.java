@@ -44,4 +44,14 @@ public class Renglon
 	     }
     }
 
+    /**
+     * Verifica que un renglon sea igual a otro
+     * @param ren el renglon a comparar
+     * @return true si son iguales, false en otro caso
+     */
+    public boolean equals(Renglon ren)
+    {
+        return (this.numRen == ren.numRen);
+    }
+
 }

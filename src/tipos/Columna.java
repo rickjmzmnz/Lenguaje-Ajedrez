@@ -51,4 +51,14 @@ public class Columna
 	     System.out.println("El nombre de la columna debe de ser entre a y h");
     }
 
+    /**
+     * Verifica que una columna sea igual a otra
+     * @param col la columna a comparar
+     * @return true si son iguales, false en otro caso
+     */
+    public boolean equals(Columna col)
+    {
+        return this.nomColumna.equals(col.nomColumna);
+    }
+
 }

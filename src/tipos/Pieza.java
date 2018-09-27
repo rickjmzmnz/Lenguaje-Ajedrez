@@ -7,6 +7,8 @@ public class Pieza
     private Color color;
     //Nombre de la pieza
     private String nombre;
+    //Identifica si es una pieza o una casilla libre
+    private boolean libre;
     //Nombres de las piezas del juego
     private String[] nombrePieza = {"Pawn","Knight","Rook","Bishop","Queen","King"};
 
@@ -14,7 +16,10 @@ public class Pieza
      * Constructor vacío
      * Representa una casilla libre
      */
-    public Pieza(){}
+    public Pieza()
+    {
+        this.libre = true;
+    }
 
     /**
      * Constructor de la clase Pieza
@@ -27,6 +32,7 @@ public class Pieza
 	        if(nombre.equals(nombrePieza)) {
 		          this.color = color;
 		          this.nombre = nombre;
+              this.libre = false;
 		      return;
 	        }
 	     }
@@ -85,6 +91,24 @@ public class Pieza
        for(String nombrePieza: nombrePieza) {
 	        System.out.println(nombrePieza);
 	     }
+    }
+
+    /**
+     * Obtiene si una pieza es libre o no
+     * @return true si es libre, false en otro caso
+     */
+    public boolean getLibre()
+    {
+        return this.libre;
+    }
+
+    /**
+     * Asigna si una pieza es libre o no
+     * @param libre true si es libre, false en otro caso
+     */
+    public void setLibre(boolean libre)
+    {
+        this.libre = libre;
     }
 
     /**

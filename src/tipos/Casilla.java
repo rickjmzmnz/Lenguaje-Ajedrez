@@ -75,4 +75,15 @@ public class Casilla
 	     return casilla;
     }
 
+    /**
+     * Verifica que una casilla sea igual a otra
+     * @param cas la casilla a comparar
+     * @return true si son iguales, false en otro caso
+     */
+    public boolean equals(Casilla cas)
+    {
+        return (this.renglon.equals(cas.renglon)
+                && this.columna.equals(cas.columna));
+    }
+
 }
