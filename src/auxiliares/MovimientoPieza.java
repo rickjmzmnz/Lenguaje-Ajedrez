@@ -35,7 +35,7 @@ public class MovimientoPieza
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
 
              pieza = config[renDes][colDes];
-             if(pieza.getColorPieza() != null) {
+             if(pieza.getColor() != null) {
 
                 Casilla cas = Transformacion.toCasilla(renDes, colDes);
                 lista.agrega(cas);
@@ -48,7 +48,7 @@ public class MovimientoPieza
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
 
              pieza = config[renDes][colDes];
-             if(pieza.getColorPieza() != null) {
+             if(pieza.getColor() != null) {
 
                 Casilla cas = Transformacion.toCasilla(renDes, colDes);
                 lista.agrega(cas);
@@ -75,7 +75,7 @@ public class MovimientoPieza
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
 
              pieza = config[renDes][colDes];
-             if(pieza.getColorPieza() != null) {
+             if(pieza.getColor() != null) {
 
                 Casilla cas = Transformacion.toCasilla(renDes, colDes);
                 lista.agrega(cas);
@@ -88,7 +88,7 @@ public class MovimientoPieza
          if(verificaRango(renDes) == true && verificaRango(colDes) == true) {
              pieza = config[renDes][colDes];
 
-             if(pieza.getColorPieza() != null) {
+             if(pieza.getColor() != null) {
 
                 Casilla cas = Transformacion.toCasilla(renDes, colDes);
                 lista.agrega(cas);

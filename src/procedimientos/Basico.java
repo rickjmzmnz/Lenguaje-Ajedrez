@@ -27,15 +27,15 @@ public class Basico
         {
             Casilla casilla = camino.obtenElem(i);
             Pieza pieza = pieza(casilla, pos);
-            if(pieza.getColorPieza() != null)
+            if(pieza.getColor() != null)
             {
                 pred = new Predicado(false);
                 return pred;
             }
         }
 
-        if(piezaDes.getColorPieza() == null ||
-           !piezaDes.getColorPieza().equals(piezaOri.getColorPieza()))
+        if(piezaDes.getColor() == null ||
+           !piezaDes.getColor().equals(piezaOri.getColor()))
         {
             pred = new Predicado(true);
         }
@@ -180,7 +180,7 @@ public class Basico
            {
                 Pieza pieza = config[i][j];
                 Casilla cas = Transformacion.toCasilla(i,j);
-                if(pieza.getColorPieza() != null)
+                if(pieza.getColor() != null)
                 {
                     Lista<Movimiento> movs = movimientoPieza(pieza, cas, config);
                     for(int k = 0; k < movs.longitud(); k++)
@@ -214,7 +214,7 @@ public class Basico
      */
     public static Color color(Pieza pieza)
     {
-        return pieza.getColorPieza();
+        return pieza.getColor();
     }
 
     /**
@@ -278,8 +278,8 @@ public class Basico
         Pieza pieza = config[numRen][numCol];
 
         return (pieza == null)
-               ? null;
-               ? pieza.getColorPieza();
+               ? null
+               : pieza.getColor();
     }
 
     /**
@@ -301,8 +301,8 @@ public class Basico
         Pieza pieza = config[numRen][numCol];
 
         return (pieza == null)
-               ? null;
-               ? pieza.getColorPieza();
+               ? null
+               : pieza.getColor();
     }
 
     /**
@@ -318,8 +318,8 @@ public class Basico
         Lista<Movimiento> lista = new Lista<Movimiento>();
         Lista<Casilla> listaCas = null;
 
-        String nombrePieza = pieza.getNombrePieza();
-        Color colorPieza = pieza.getColorPieza();
+        String nombrePieza = pieza.getNombre();
+        Color colorPieza = pieza.getColor();
         String nombreColor = colorPieza.getColor();
         Renglon ren = origen.getRenglon();
         Columna col = origen.getColumna();
@@ -353,7 +353,6 @@ public class Basico
                 break;
 
         }
-
         for(int i = 0; i < listaCas.longitud(); i++)
         {
             Casilla cas = listaCas.obtenElem(i);
@@ -361,6 +360,111 @@ public class Basico
             lista.agrega(mov);
         }
         return lista;
+    }
+
+    /**
+     * Verifica si existe un hacke a un rey de un color en específico
+     * @param pos la configuración actual del tablero
+     * @param col el color del rey a verificar
+     * @return true si existe un hacke, false en otro caso
+     */
+    public static boolean hacke(Posicion pos, Color col)
+    {
+        Lista<Casilla> casillasRey = Basico.buscaPiezas(pos, "King", col);
+        Lista<Casilla> contrario = Basico.buscaPiezasColor(pos, Basico.otro(col));
+        Pieza actual = null;
+        Casilla casRes = casillasRey.obtenElem(0);
+        Casilla cas = null;
+        Casilla des = null;
+        Movimiento mov = null;
+        Lista<Movimiento> movimientos = null;
+        Tablero tab = pos.getPosicion();
+        Pieza[][] config = tab.getTablero();
+
+        for(int i = 0; i < contrario.longitud(); i++)
+        {
+            cas = contrario.obtenElem(i);
+            actual = Basico.pieza(cas, pos);
+            movimientos = Basico.movimientoPieza(actual, cas, config);
+            for(int j = 0; j < movimientos.longitud(); j++)
+            {
+                mov = movimientos.obtenElem(j);
+                des = mov.getCasillaDestino();
+                if(des.equals(casRes))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Busca piezas en específico en el tablero actual
+     * @param pos la configuración actual del tablero
+     * @param nom el nombre de las piezas a buscar
+     * @param col el color de las piezas a buscar
+     * @return una lista que contiene las listas que coincidan con las
+     *         especificaciones dadas
+     */
+    private static Lista<Casilla> buscaPiezas(Posicion pos, String nom, Color col)
+    {
+        Tablero tab = pos.getPosicion();
+        Pieza[][] config = tab.getTablero();
+        Casilla cas = null;
+        Lista<Casilla> casillas = new Lista<Casilla>();
+
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                Pieza pieza = config[i][j];
+                boolean libre = pieza.getLibre();
+                if(!libre)
+                {
+                    String nombre = pieza.getNombre();
+                    Color color = pieza.getColor();
+                    if(nombre.equals(nom) &&
+                        color.equals(col))
+                    {
+                    cas = Transformacion.toCasilla(i,j);
+                    casillas.agrega(cas);
+                    }
+                }
+            }
+        }
+        return casillas;
+    }
+
+    /**
+     * Busca todas las piezas de un color en específico en el tablero actual
+     * @param pos la configuración actual del tablero
+     * @param col el color de las piezas buscar
+     * @return una lista que contiene las casillas en las que se encuentran las piezas
+     */
+    private static Lista<Casilla> buscaPiezasColor(Posicion pos, Color col)
+    {
+        Tablero tab = pos.getPosicion();
+        Pieza[][] config = tab.getTablero();
+        Casilla cas = null;
+        Lista<Casilla> casillas = new Lista<Casilla>();
+
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                Pieza pieza = config[i][j];
+                boolean libre = pieza.getLibre();
+                if(!libre)
+                {
+                    Color color = pieza.getColor();
+                    if(color.equals(col))
+                    {
+                        cas = Transformacion.toCasilla(i,j);
+                        casillas.agrega(cas);
+                    }
+                }
+            }
+        }
+        return casillas;
     }
 
 }

@@ -14,11 +14,11 @@ public class Transformacion
    */
   public static int posicionRenglon(Renglon ren)
   {
-      int numRen = ren.getNumRenglon();
+      int numRen = ren.getNumero();
       int pos = 0;
 
-      switch(numRen){
-
+      switch(numRen)
+      {
           case 1:
               pos = 7;
               break;
@@ -51,7 +51,6 @@ public class Transformacion
               break;
 
       }
-
       return pos;
   }
 
@@ -65,10 +64,10 @@ public class Transformacion
    public static int posicionColumna(Columna col)
    {
       int pos = 0;
-      String nomColumna = col.getNomColumna();
+      String nomColumna = col.getNombre();
 
-      switch(nomColumna){
-
+      switch(nomColumna)
+      {
           case "a":
               break;
 
@@ -101,7 +100,6 @@ public class Transformacion
               break;
 
       }
-
       return pos;
    }
 
@@ -117,8 +115,8 @@ public class Transformacion
       int casRen = 0;
       String casCol = "";
 
-      switch(ren){
-
+      switch(ren)
+      {
           case 0:
               casRen = 8;
               break;
@@ -153,8 +151,8 @@ public class Transformacion
 
      }
 
-     switch(col){
-
+     switch(col)
+     {
           case 0:
               casCol = "a";
               break;

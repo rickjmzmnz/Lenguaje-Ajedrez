@@ -22,15 +22,18 @@ public class Movimiento
 	     Renglon renDestino = casDes.getRenglon();
 	     Columna colDestino = casDes.getColumna();
 
-	     int numRenOrigen = renOrigen.getNumRenglon();
-	     String nomColOrigen = colOrigen.getNomColumna();
+	     int numRenOrigen = renOrigen.getNumero();
+	     String nomColOrigen = colOrigen.getNombre();
 
-	     int numRenDestino = renDestino.getNumRenglon();
-	     String nomColDestino = colDestino.getNomColumna();
+	     int numRenDestino = renDestino.getNumero();
+	     String nomColDestino = colDestino.getNombre();
 
-	     if(numRenOrigen == numRenDestino && nomColOrigen.equals(nomColDestino)) {
+	     if(numRenOrigen == numRenDestino && nomColOrigen.equals(nomColDestino))
+       {
 	        System.out.println("ERROR: no puedes dejar la pieza en la misma casilla");
-	     } else {
+	     }
+       else
+       {
 	        this.casillaOrigen = casOri;
 	        this.casillaDestino = casDes;
 	     }

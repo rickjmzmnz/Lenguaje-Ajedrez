@@ -14,13 +14,14 @@ public class Columna
      */
     public Columna(String nomColumna)
     {
-	     for(String nombre: nombres) {
-	        if(nombre.equals(nomColumna)) {
+	     for(String nombre: nombres)
+       {
+	        if(nombre.equals(nomColumna))
+          {
 		          this.nomColumna = nomColumna;
 		          return;
 	         }
 	      }
-
 	      System.out.println("Error: no se puede definir una columna " + nomColumna);
 	      System.out.println("El nombre de la columna debe de ser entre a y h");
     }
@@ -29,7 +30,7 @@ public class Columna
      * Obtiene el nombre de la columna
      * @return el nombre de la columna
      */
-    public String getNomColumna()
+    public String getNombre()
     {
 	     return this.nomColumna;
     }
@@ -38,15 +39,16 @@ public class Columna
      * Define un nuevo nombre a la columna
      * @param nomColumna el nuevo nombre
      */
-    public void setNomColumna(String nomColumna)
+    public void setNombre(String nomColumna)
     {
-	     for(String nombre: nombres) {
-	        if(nombre.equals(nomColumna)) {
+	     for(String nombre: nombres)
+       {
+	        if(nombre.equals(nomColumna))
+          {
 		          this.nomColumna = nomColumna;
 		          return;
 	        }
 	     }
-
 	     System.out.println("Error: no se puede definir una columna " + nomColumna);
 	     System.out.println("El nombre de la columna debe de ser entre a y h");
     }

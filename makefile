@@ -1,12 +1,17 @@
 clean:
-	rm src/tipos/*.class
-	rm src/auxiliares/*.class
-	rm src/procedimientos/*.class
-	rm *.class
+	rm -rf build/
 
-exec:
+compile:
+	mkdir build
+	mkdir build/src
+	mkdir build/src/tipos
+	mkdir build/src/auxiliares
+	mkdir build/src/procedimientos
 	javac src/tipos/*.java
 	javac src/auxiliares/*.java
 	javac src/procedimientos/*.java
 	javac Main.java
-	java Main
+	mv src/tipos/*.class build/src/tipos/
+	mv src/auxiliares/*.class build/src/auxiliares/
+	mv src/procedimientos/*.class build/src/procedimientos/
+	mv *.class build/

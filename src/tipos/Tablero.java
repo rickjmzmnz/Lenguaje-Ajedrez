@@ -40,17 +40,21 @@ public class Tablero
       	tablero[0][6] = BN;
       	tablero[0][7] = BR;
 
-        for(int j=0; j<8; j++) {
+        for(int j=0; j<8; j++)
+        {
 	           tablero[1][j] = BP;
 	      }
 
-	      for(int i=2; i<6; i++){
-	         for(int j=0; j<8; j++){
+	      for(int i=2; i<6; i++)
+        {
+	         for(int j=0; j<8; j++)
+           {
 		          tablero[i][j] = libre;
 	         }
 	      }
 
-	      for(int j=0; j<8; j++){
+	      for(int j=0; j<8; j++)
+        {
 	         tablero[6][j] = WP;
 	      }
 
@@ -93,8 +97,10 @@ public class Tablero
     {
 	     String cadena = "";
 
-	     for(int i=0; i < 8; i++) {
-	        for(int j=0; j < 8; j++) {
+	     for(int i=0; i < 8; i++)
+       {
+	        for(int j=0; j < 8; j++)
+          {
 		          Pieza pieza = this.tablero[i][j];
 		          cadena = cadena + pieza.toString() + " ";
 	        }

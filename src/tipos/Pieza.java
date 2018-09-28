@@ -28,19 +28,21 @@ public class Pieza
      */
     public Pieza(Color color,String nombre)
     {
-	     for(String nombrePieza: nombrePieza) {
-	        if(nombre.equals(nombrePieza)) {
+	     for(String nombrePieza: nombrePieza)
+       {
+	        if(nombre.equals(nombrePieza))
+          {
 		          this.color = color;
 		          this.nombre = nombre;
               this.libre = false;
-		      return;
+		          return;
 	        }
 	     }
-
 	     System.out.println("Error: No se puede definir la pieza = " + nombre);
 	     System.out.println("Las piezas disponibles son: ");
 
-       for(String nombrePieza: nombrePieza) {
+       for(String nombrePieza: nombrePieza)
+       {
 	           System.out.println(nombrePieza);
 	     }
      }
@@ -49,7 +51,7 @@ public class Pieza
      * Obtiene el color de la pieza
      * @return el color de la pieza
      */
-    public Color getColorPieza()
+    public Color getColor()
     {
 	     return this.color;
     }
@@ -58,7 +60,7 @@ public class Pieza
      * Asigna un color a la pieza
      * @param color el nuevo color
      */
-    public void setColorPieza(Color color)
+    public void setColor(Color color)
     {
 	     this.color = color;
     }
@@ -67,7 +69,7 @@ public class Pieza
      * Obtiene el nombre de la pieza
      * @return el nombre de la pieza
      */
-    public String getNombrePieza()
+    public String getNombre()
     {
 	     return this.nombre;
     }
@@ -76,19 +78,21 @@ public class Pieza
      * Asigna un nombre a la pieza
      * @param nombre el nuevo nombre
      */
-    public void setNombrePieza(String nombre)
+    public void setNombre(String nombre)
     {
-	     for(String nombrePieza: nombrePieza) {
-	        if(nombre.equals(nombrePieza)) {
+	     for(String nombrePieza: nombrePieza)
+       {
+	        if(nombre.equals(nombrePieza))
+          {
 		          this.nombre = nombre;
 		          return;
 	        }
 	     }
-
 	     System.out.println("Error: No se puede definir la pieza = " + nombre);
 	     System.out.println("Las piezas disponibles son: ");
 
-       for(String nombrePieza: nombrePieza) {
+       for(String nombrePieza: nombrePieza)
+       {
 	        System.out.println(nombrePieza);
 	     }
     }
@@ -118,16 +122,17 @@ public class Pieza
     @Override
     public String toString()
     {
-	     if(this.getColorPieza() == null) {
+	     if(this.getColor() == null)
+       {
 	        return "-";
-	     } else {
-
-	        Color colPieza = this.getColorPieza();
-	        String nomPieza = this.getNombrePieza();
+	     }
+       else
+       {
+	        Color colPieza = this.getColor();
+	        String nomPieza = this.getNombre();
 	        String color = colPieza.getColor();
 	        String pieza = selecPieza(color,nomPieza);
 	        return pieza;
-
 	     }
      }
 
@@ -140,9 +145,10 @@ public class Pieza
      {
          String nombre = "";
 
-         if(color.equals("Black")) {
-
-           switch (pieza) {
+         if(color.equals("Black"))
+         {
+           switch (pieza)
+           {
 
               case "Pawn":
                 nombre = "P";
@@ -168,10 +174,11 @@ public class Pieza
                 nombre = "K";
                 break;
            }
-
-         } else {
-
-           switch (pieza) {
+         }
+         else
+         {
+           switch (pieza)
+           {
 
               case "Pawn":
                 nombre = "p";
@@ -198,9 +205,7 @@ public class Pieza
                 break;
 
            }
-
          }
-
          return nombre;
      }
 

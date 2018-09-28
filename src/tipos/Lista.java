@@ -48,7 +48,8 @@ public class Lista<T>
     {
         int longitud = lista.longitud();
 
-        for(int i = 0; i < longitud; i++) {
+        for(int i = 0; i < longitud; i++)
+        {
             T t = lista.obtenElem(i);
             this.agrega(t);
         }
@@ -64,6 +65,22 @@ public class Lista<T>
     }
 
     /**
+     * Busca si un elemento está en la lista
+     * @param busca el elemento a buscar
+     * @return true si lo encuentra, false en otro caso
+     */
+    public boolean contiene(T busca)
+    {
+        for(int i = 0; i < this.longitud(); i++)
+        {
+            T t = this.obtenElem(i);
+            if(t.equals(busca))
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * Obtiene una representación en cadena de la lista
      * @return la lista en cadena mostrando los elementos que tiene
      */
@@ -72,12 +89,12 @@ public class Lista<T>
     {
 	     String cadena = "";
 
-	     for(int i=0; i<this.longitud(); i++){
+	     for(int i=0; i<this.longitud(); i++)
+       {
 	        T t = this.obtenElem(i);
 	        String cadenaT = t.toString();
 	        cadena = cadena + "El elemento " + i + " es " + cadenaT + "\n";
 	     }
-
 	     return cadena;
     }
 

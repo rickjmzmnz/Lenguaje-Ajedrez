@@ -12,9 +12,12 @@ public class Renglon
      */
     public Renglon(int numRen)
     {
-	     if(numRen > 0 && numRen < 9) {
+	     if(numRen > 0 && numRen < 9)
+       {
 	        this.numRen = numRen;
-	     } else {
+	     }
+       else
+       {
 	        System.out.println("ERROR: no se puede definir un Renglon " + numRen);
 	        System.out.println("El número del Renglon debe de ser entre 1 y 8");
 	     }
@@ -24,7 +27,7 @@ public class Renglon
      * Obtiene el número delRenglon
      * @return el número del Renglon
      */
-    public int getNumRenglon()
+    public int getNumero()
     {
 	     return this.numRen;
     }
@@ -34,11 +37,14 @@ public class Renglon
      * El número debe estar en el intervalo [1,8]
      * @param numRen el nuevo número
      */
-    public void setNumRenglon(int numRen)
+    public void setNumero(int numRen)
     {
-	     if(numRen > 0 && numRen < 9) {
+	     if(numRen > 0 && numRen < 9)
+       {
 	        this.numRen = numRen;
-	     } else {
+	     }
+       else
+       {
 	        System.out.println("ERROR: no se puede definir un Renglon " + numRen);
 	        System.out.println("El número del Renglon debe de ser entre 1 y 8");
 	     }

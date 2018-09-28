@@ -14,13 +14,14 @@ public class Color
      */
     public Color(String color)
     {
-	     for(String colores: colores) {
-	        if(color.equals(colores)) {
+	     for(String colores: colores)
+       {
+	        if(color.equals(colores))
+          {
 		          this.color = color;
 		          return;
 	        }
 	     }
-
 	     System.out.println("Error: No se puede definir el color = " + color);
 	     System.out.println("Sólo se puede definir el color White o Black");
     }
@@ -40,13 +41,14 @@ public class Color
      */
     public void setColor(String color)
     {
-	     for(String colores: colores) {
-	        if(color.equals(colores)) {
+	     for(String colores: colores)
+       {
+	        if(color.equals(colores))
+          {
 		          this.color = color;
-		           return;
+		          return;
 	        }
 	     }
-
 	     System.out.println("Error: No se puede definir el color = " + color);
 	     System.out.println("Sólo se puede definir el color Blanco o Negro");
     }

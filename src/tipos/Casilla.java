@@ -69,8 +69,8 @@ public class Casilla
     {
 	     Renglon renglon = this.getRenglon();
 	     Columna columna = this.getColumna();
-	     int nomRen = renglon.getNumRenglon();
-	     String numCol = columna.getNomColumna();
+	     int nomRen = renglon.getNumero();
+	     String numCol = columna.getNombre();
 	     String casilla = numCol + nomRen;
 	     return casilla;
     }
