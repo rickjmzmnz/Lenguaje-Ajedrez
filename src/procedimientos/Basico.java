@@ -2,9 +2,15 @@ package src.procedimientos;
 
 import src.tipos.*;
 import src.auxiliares.*;
+import src.estructuras.EstructuraBasico;
 
-public class Basico
+public class Basico implements EstructuraBasico
 {
+
+    /**
+     * Constructor vacío
+     */
+    public Basico(){}
 
     /**
      * Dada una posicion del tablero y un movimiento que se quiere realizar
@@ -13,7 +19,7 @@ public class Basico
      * @param mov el movimiento a realizar
      * @return un predicado indicando si es posible el movimiento
      */
-    public static Predicado posible(Posicion pos,Movimiento mov)
+    public Predicado posible(Posicion pos,Movimiento mov)
     {
         Casilla casDes = mov.getCasillaDestino();
         Casilla casOri = mov.getCasillaOrigen();
@@ -53,7 +59,7 @@ public class Basico
      * @param pos la posicion actual del tablero
      * @return una lista con las casillas por la que pasa el movimiento
      */
-    public static Lista<Casilla> camino(Movimiento mov, Posicion pos)
+    public Lista<Casilla> camino(Movimiento mov, Posicion pos)
     {
         Lista<Casilla> lista = new Lista<Casilla>();
         Tablero tablero = pos.getPosicion();
@@ -168,7 +174,7 @@ public class Basico
      * @param pos la posición actual del tablero
      * @return una lista con todos los movimientos de las piezas del tablero
      */
-    public static Lista<Movimiento> movimientos(Posicion pos)
+    public Lista<Movimiento> movimientos(Posicion pos)
     {
         Lista<Movimiento> lista = new Lista<Movimiento>();
         Tablero tablero = pos.getPosicion();
@@ -202,7 +208,7 @@ public class Basico
      * @param mov el movimiento realizado
      * @return la casilla de donde parte el movimiento
      */
-    public static Casilla origen(Movimiento mov)
+    public Casilla origen(Movimiento mov)
     {
         return mov.getCasillaOrigen();
     }
@@ -212,7 +218,7 @@ public class Basico
      * @param pieza la pieza a la que se le obtiene el color
      * @return el color de la pieza
      */
-    public static Color color(Pieza pieza)
+    public Color color(Pieza pieza)
     {
         return pieza.getColor();
     }
@@ -222,7 +228,7 @@ public class Basico
      * @param color el color a obtener el contrario
      * @return el otro color
      */
-    public static Color otro(Color color)
+    public Color otro(Color color)
     {
         String actual = color.getColor();
 
@@ -247,7 +253,7 @@ public class Basico
      * @param pos la posición actual del tablero
      * @return la pieza en la casilla
      */
-    public static Pieza pieza(Casilla cas,Posicion pos)
+    public Pieza pieza(Casilla cas,Posicion pos)
     {
         Renglon ren = cas.getRenglon();
         Columna col = cas.getColumna();
@@ -266,7 +272,7 @@ public class Basico
      * @param pos la configuración actual del tablero
      * @return el color de la pieza en la casilla destino
      */
-    public static Color cpd(Movimiento mov, Posicion pos)
+    public Color cpd(Movimiento mov, Posicion pos)
     {
         Tablero tablero = pos.getPosicion();
         Pieza[][] config = tablero.getTablero();
@@ -289,7 +295,7 @@ public class Basico
      * @param pos la configuración actual del tablero
      * @return el color de la pieza en la casilla origen
      */
-    public static Color cpo(Movimiento mov, Posicion pos)
+    public Color cpo(Movimiento mov, Posicion pos)
     {
         Tablero tablero = pos.getPosicion();
         Pieza[][] config = tablero.getTablero();
@@ -313,7 +319,7 @@ public class Basico
      * @param config la configuración actual del tablero
      * @return una lista con los movimientos que realiza la pieza dada esa configuración
      */
-    public static Lista<Movimiento> movimientoPieza(Pieza pieza, Casilla origen, Pieza[][] config)
+    public Lista<Movimiento> movimientoPieza(Pieza pieza, Casilla origen, Pieza[][] config)
     {
         Lista<Movimiento> lista = new Lista<Movimiento>();
         Lista<Casilla> listaCas = null;
@@ -368,10 +374,10 @@ public class Basico
      * @param col el color del rey a verificar
      * @return true si existe un hacke, false en otro caso
      */
-    public static boolean hacke(Posicion pos, Color col)
+    public boolean hacke(Posicion pos, Color col)
     {
-        Lista<Casilla> casillasRey = Basico.buscaPiezas(pos, "King", col);
-        Lista<Casilla> contrario = Basico.buscaPiezasColor(pos, Basico.otro(col));
+        Lista<Casilla> casillasRey = this.buscaPiezas(pos, "King", col);
+        Lista<Casilla> contrario = this.buscaPiezasColor(pos, this.otro(col));
         Pieza actual = null;
         Casilla casRes = casillasRey.obtenElem(0);
         Casilla cas = null;
@@ -384,8 +390,8 @@ public class Basico
         for(int i = 0; i < contrario.longitud(); i++)
         {
             cas = contrario.obtenElem(i);
-            actual = Basico.pieza(cas, pos);
-            movimientos = Basico.movimientoPieza(actual, cas, config);
+            actual = this.pieza(cas, pos);
+            movimientos = this.movimientoPieza(actual, cas, config);
             for(int j = 0; j < movimientos.longitud(); j++)
             {
                 mov = movimientos.obtenElem(j);
@@ -405,7 +411,7 @@ public class Basico
      * @return una lista que contiene las listas que coincidan con las
      *         especificaciones dadas
      */
-    private static Lista<Casilla> buscaPiezas(Posicion pos, String nom, Color col)
+    private Lista<Casilla> buscaPiezas(Posicion pos, String nom, Color col)
     {
         Tablero tab = pos.getPosicion();
         Pieza[][] config = tab.getTablero();
@@ -440,7 +446,7 @@ public class Basico
      * @param col el color de las piezas buscar
      * @return una lista que contiene las casillas en las que se encuentran las piezas
      */
-    private static Lista<Casilla> buscaPiezasColor(Posicion pos, Color col)
+    private Lista<Casilla> buscaPiezasColor(Posicion pos, Color col)
     {
         Tablero tab = pos.getPosicion();
         Pieza[][] config = tab.getTablero();
