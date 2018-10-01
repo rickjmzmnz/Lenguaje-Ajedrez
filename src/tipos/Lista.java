@@ -65,22 +65,6 @@ public class Lista<T>
     }
 
     /**
-     * Busca si un elemento está en la lista
-     * @param busca el elemento a buscar
-     * @return true si lo encuentra, false en otro caso
-     */
-    public boolean contiene(T busca)
-    {
-        for(int i = 0; i < this.longitud(); i++)
-        {
-            T t = this.obtenElem(i);
-            if(t.equals(busca))
-                return true;
-        }
-        return false;
-    }
-
-    /**
      * Obtiene una representación en cadena de la lista
      * @return la lista en cadena mostrando los elementos que tiene
      */

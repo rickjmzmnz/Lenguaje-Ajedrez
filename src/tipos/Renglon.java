@@ -57,7 +57,7 @@ public class Renglon
      */
     public boolean equals(Renglon ren)
     {
-        return (this.numRen == ren.numRen);
+        return (this.numRen == ren.getNumero());
     }
 
 }

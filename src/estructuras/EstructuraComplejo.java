@@ -21,4 +21,13 @@ public interface EstructuraComplejo
      * @return true si se encuentra "pinneada", false en otro caso
      */
     public Predicado pinned(Movimiento mov, Posicion pos);
+
+    /**
+     * Obtiene una lista de los movimientos legales dada una posición
+     * @param pos la configuración actual del tablero
+     * @param col el color de las piezas a verificar sus movimientos
+     * @return una lista que contiene los movimientos legales
+     */
+    public Lista<Movimiento> legales(Posicion pos, Color col);
+
 }

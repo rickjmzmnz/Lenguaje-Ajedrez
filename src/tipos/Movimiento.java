@@ -97,8 +97,8 @@ public class Movimiento
      */
     public boolean equals(Movimiento mov)
     {
-        return (this.casillaOrigen.equals(mov.casillaOrigen)
-               && this.casillaDestino.equals(mov.casillaDestino));
+        return (this.casillaOrigen.equals(mov.getCasillaOrigen())
+               && this.casillaDestino.equals(mov.getCasillaDestino()));
     }
 
 }

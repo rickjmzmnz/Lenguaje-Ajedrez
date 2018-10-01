@@ -82,8 +82,8 @@ public class Casilla
      */
     public boolean equals(Casilla cas)
     {
-        return (this.renglon.equals(cas.renglon)
-                && this.columna.equals(cas.columna));
+        return (this.renglon.equals(cas.getRenglon())
+                && this.columna.equals(cas.getColumna()));
     }
 
 }

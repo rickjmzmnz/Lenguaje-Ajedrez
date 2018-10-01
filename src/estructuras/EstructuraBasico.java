@@ -95,6 +95,21 @@ public interface EstructuraBasico
      * @param col el color del rey a verificar
      * @return true si existe un hacke, false en otro caso
      */
-    public boolean hacke(Posicion pos, Color col);
+    public Predicado hacke(Posicion pos, Color col);
+
+    /**
+    * Verifica si existe un hackemate a un rey de un color en específico
+    * @param pos la configuración actual del tablero
+    * @param col el color del rey a verificar
+    * @return true si existe un hackemate, false en otro caso
+    */
+    public Predicado hackeMate(Posicion pos, Color col);
+
+    /**
+     * Dada una posición del tablero, se realiza un movimiento
+     * @param mov el movimiento a realizar
+     * @param pos la configuración actual del tablero
+     */
+    public void realizaMovimiento(Movimiento mov, Posicion pos);
 
 }

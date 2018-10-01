@@ -374,12 +374,14 @@ public class Basico implements EstructuraBasico
      * @param col el color del rey a verificar
      * @return true si existe un hacke, false en otro caso
      */
-    public boolean hacke(Posicion pos, Color col)
+    public Predicado hacke(Posicion pos, Color col)
     {
-        Lista<Casilla> casillasRey = this.buscaPiezas(pos, "King", col);
+        Predicado pred = new Predicado(true);
+        Pieza rey = new Pieza(col, "King");
+        Lista<Casilla> casillasRey = this.buscaPiezas(pos, rey);
         Lista<Casilla> contrario = this.buscaPiezasColor(pos, this.otro(col));
         Pieza actual = null;
-        Casilla casRes = casillasRey.obtenElem(0);
+        Casilla casRey = casillasRey.obtenElem(0);
         Casilla cas = null;
         Casilla des = null;
         Movimiento mov = null;
@@ -396,23 +398,108 @@ public class Basico implements EstructuraBasico
             {
                 mov = movimientos.obtenElem(j);
                 des = mov.getCasillaDestino();
-                if(des.equals(casRes))
-                    return true;
+                if(des.equals(casRey))
+                    return pred;
             }
         }
-        return false;
+        pred.setValor(false);
+        return pred;
+    }
+
+    /**
+    * Verifica si existe un hackemate a un rey de un color en específico
+    * @param pos la configuración actual del tablero
+    * @param col el color del rey a verificar
+    * @return true si existe un hackemate, false en otro caso
+    */
+    public Predicado hackeMate(Posicion pos, Color col)
+    {
+        Posicion actual = pos;
+        Tablero tab = pos.getPosicion();
+        Pieza[][] config = tab.getTablero();
+        Predicado hackeMate = new Predicado(true);
+        Predicado hacke = null;
+        Pieza rey = new Pieza(col, "King");
+        Lista<Casilla> casillasRey = this.buscaPiezas(pos, rey);
+        Casilla casRey = casillasRey.obtenElem(0);
+        Lista<Movimiento> movsRey = this.movimientoPieza(rey, casRey, config);
+
+        for(int i = 0; i < movsRey.longitud(); i++)
+        {
+            Movimiento movRey = movsRey.obtenElem(i);
+            this.realizaMovimiento(movRey, actual);
+            hacke = this.hacke(actual, col);
+            if(!hacke.getValor())
+            {
+                hackeMate.setValor(false);
+            }
+            actual = pos;
+        }
+        return hackeMate;
+    }
+
+    /**
+     * Dada una posición del tablero, se realiza un movimiento
+     * @param mov el movimiento a realizar
+     * @param pos la configuración actual del tablero
+     */
+    public void realizaMovimiento(Movimiento mov, Posicion pos)
+    {
+        Predicado posible = this.posible(pos, mov);
+
+        if(posible.getValor())
+        {
+            Tablero tab = pos.getPosicion();
+            Pieza[][] config = tab.getTablero();
+
+            Casilla ori = this.origen(mov);
+            Pieza piezaOri = this.pieza(ori, pos);
+            Lista<Movimiento> movimientos = this.movimientoPieza(piezaOri, ori, config);
+            boolean contiene = false;
+
+            for(int i = 0; i < movimientos.longitud(); i++)
+            {
+                Movimiento m = movimientos.obtenElem(i);
+                if(mov.equals(m))
+                {
+                    contiene = true;
+                    break;
+                }
+            }
+            if(contiene)
+            {
+                Renglon renOri = ori.getRenglon();
+                int intRenOri = Transformacion.posicionRenglon(renOri);
+                Columna colOri = ori.getColumna();
+                int intColOri = Transformacion.posicionColumna(colOri);
+
+                Casilla des = mov.getCasillaDestino();
+                Pieza vacia = new Pieza();
+                Renglon renDes = des.getRenglon();
+                int intRenDes = Transformacion.posicionRenglon(renDes);
+                Columna colDes = des.getColumna();
+                int intColDes = Transformacion.posicionColumna(colDes);
+
+                config[intRenOri][intColOri] = vacia;
+                config[intRenDes][intColDes] = piezaOri;
+
+                tab.setTablero(config);
+                pos.setPosicion(tab);
+            }
+        }
     }
 
     /**
      * Busca piezas en específico en el tablero actual
      * @param pos la configuración actual del tablero
-     * @param nom el nombre de las piezas a buscar
-     * @param col el color de las piezas a buscar
+     * @param busca la pieza a buscar con sus respectivas propiedades
      * @return una lista que contiene las listas que coincidan con las
      *         especificaciones dadas
      */
-    private Lista<Casilla> buscaPiezas(Posicion pos, String nom, Color col)
+    private Lista<Casilla> buscaPiezas(Posicion pos, Pieza busca)
     {
+        String nom = busca.getNombre();
+        Color col = busca.getColor();
         Tablero tab = pos.getPosicion();
         Pieza[][] config = tab.getTablero();
         Casilla cas = null;

@@ -60,7 +60,7 @@ public class Columna
      */
     public boolean equals(Columna col)
     {
-        return this.nomColumna.equals(col.nomColumna);
+        return this.nomColumna.equals(col.getNombre());
     }
 
 }
