@@ -30,4 +30,48 @@ public interface EstructuraComplejo
      */
     public Lista<Movimiento> legales(Posicion pos, Color col);
 
+    /**
+     * Obtiene la información actual de la partida
+     * @param pos la configuración actual del tablero
+     * @param col el color de las piezas del jugador actual
+     * @param hacke el predicado que indica si se está en hacke
+     * @param material las piezas actuales
+     * @param casillasHacke las casillas donde se puede hacer hacke al contrario
+     * @param hackes los movimientos para hacer hacke
+     * @param capturas los movimientos para hacer capturas
+     * @param antiHackes los movimientos para no hacer hacke
+     */
+    public void informacion(Posicion pos, Color col, Predicado hacke, Predicado mate,
+                            int material, Lista<Casilla> hackeDesde,
+                            Lista<Movimiento> hackes, Lista<Movimiento> capturas,
+                            Lista<Movimiento> antiHackes);
+
+    /**
+     * Obtiene una descripción actual de la partida
+     * @param pos la configuración actual del tablero
+     * @param col el color de las piezas del jugador actual
+     * @param analizarMovs los movimientos a analizar
+     * @param valor el valor de la descripción
+     */
+    public void descripcion(Posicion pos, Color col, Lista<Movimiento> analizarMovs,
+                            Lista<Object> valor);
+
+    /**
+     * Compara compara dos evaluaciones
+     * @param aValor primera evaluación
+     * @param bValor segunda evaluación
+     * @return true si la primera evaluación es mejor que la segunda,
+     *         false en caso contrario
+     */
+    public Predicado mejor(Lista<Object> aValor, Lista<Object> bValor);
+
+    /**
+     * Evalua una descripción actual de la partida
+     * @param pos la configuración actual del tablero
+     * @param col el color de las piezas del jugador actual
+     * @param variaciones los movimientos que se pueden realizar
+     * @param evaluacion la lista que contiene la evaluación
+     */
+    public void evalua(Posicion pos, Color col, Lista<Movimiento> variacion,
+                       Lista<Object> evaluacion);
 }

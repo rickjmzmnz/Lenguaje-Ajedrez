@@ -137,6 +137,39 @@ public class Pieza
      }
 
      /**
+      * Regresa el valor en entero de una pieza
+      * @param pieza la pieza a evaluar
+      * @return el valor de la pieza
+      */
+     public int valor()
+     {
+         String nombre = this.getNombre();
+         switch(nombre)
+         {
+             case "Pawn":
+                 return 1;
+
+             case "Knight":
+                 return 3;
+
+             case "Rook":
+                 return 5;
+
+             case "Bishop":
+                 return 3;
+
+             case "Queen":
+                 return 9;
+
+             case "King":
+                 return 0;
+
+             default:
+                 return 0;
+         }
+     }
+
+     /**
       * Dado el nombre de una pieza y su color
       * Regresa su representación en cadena según las convenciones del ajedrez
       * @return la abreviación de la pieza según su color

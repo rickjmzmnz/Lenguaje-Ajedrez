@@ -26,6 +26,7 @@ public class Main
        Predicado hM = bas.hackeMate(posicion, color);
        System.out.println(posicion.getPosicion());
        System.out.println(hM.getValor());
+
        //boolean b = bas.hacke(posicion, col);
        //System.out.println(b);
        //Lista<Movimiento> movs = Basico.movimientos(posicion);

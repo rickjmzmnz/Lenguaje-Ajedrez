@@ -39,6 +39,13 @@ public interface EstructuraBasico
     public Casilla origen(Movimiento mov);
 
     /**
+    * Obtiene la casilla hacia donde va un movimiento
+    * @param mov el movimiento realizado
+    * @return la casilla hacia donde va el movimiento
+    */
+    public Casilla destino(Movimiento mov);
+
+    /**
      * Obtiene el color de la pieza
      * @param pieza la pieza a la que se le obtiene el color
      * @return el color de la pieza
@@ -112,4 +119,28 @@ public interface EstructuraBasico
      */
     public void realizaMovimiento(Movimiento mov, Posicion pos);
 
+    /**
+     * Obtiene las casillas donde una pieza puede hacer hacke
+     * @param pos la configuración actual del tablero
+     * @param col el color del rey a hacer hacke
+     * @param pieza la pieza a la que se le va a verificar las casillas
+     */
+    public Lista<Casilla> casillasHacke(Posicion pos, Color col, Pieza pieza);
+
+    /**
+     * Busca piezas en específico en el tablero actual
+     * @param pos la configuración actual del tablero
+     * @param busca la pieza a buscar con sus respectivas propiedades
+     * @return una lista que contiene las casillas de las piezas que coincidan
+     *         con las especificaciones dadas
+     */
+    public Lista<Casilla> buscaPiezas(Posicion pos, Pieza busca);
+
+    /**
+     * Busca todas las piezas de un color en específico en el tablero actual
+     * @param pos la configuración actual del tablero
+     * @param col el color de las piezas buscar
+     * @return una lista que contiene las casillas en las que se encuentran las piezas
+     */
+     public Lista<Casilla> buscaPiezasColor(Posicion pos, Color col);
 }

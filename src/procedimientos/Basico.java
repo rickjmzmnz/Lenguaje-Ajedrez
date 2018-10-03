@@ -21,8 +21,8 @@ public class Basico implements EstructuraBasico
      */
     public Predicado posible(Posicion pos,Movimiento mov)
     {
-        Casilla casDes = mov.getCasillaDestino();
-        Casilla casOri = mov.getCasillaOrigen();
+        Casilla casDes = this.destino(mov);
+        Casilla casOri = this.origen(mov);
         Pieza piezaDes = pieza(casDes, pos);
         Pieza piezaOri = pieza(casOri, pos);
         Predicado pred = null;
@@ -65,13 +65,13 @@ public class Basico implements EstructuraBasico
         Tablero tablero = pos.getPosicion();
         Pieza[][] config = tablero.getTablero();
 
-        Casilla casOri = mov.getCasillaOrigen();
+        Casilla casOri = this.origen(mov);
         Columna colOri = casOri.getColumna();
         int posColOri = Transformacion.posicionColumna(colOri);
         Renglon renOri = casOri.getRenglon();
         int posRenOri = Transformacion.posicionRenglon(renOri);
 
-        Casilla casDes = mov.getCasillaDestino();
+        Casilla casDes = this.destino(mov);
         Columna colDes = casDes.getColumna();
         int posColDes = Transformacion.posicionColumna(colDes);
         Renglon renDes = casDes.getRenglon();
@@ -214,6 +214,16 @@ public class Basico implements EstructuraBasico
     }
 
     /**
+    * Obtiene la casilla hacia donde va un movimiento
+    * @param mov el movimiento realizado
+    * @return la casilla hacia donde va el movimiento
+    */
+    public Casilla destino(Movimiento mov)
+    {
+        return mov.getCasillaDestino();
+    }
+
+    /**
      * Obtiene el color de la pieza
      * @param pieza la pieza a la que se le obtiene el color
      * @return el color de la pieza
@@ -276,7 +286,7 @@ public class Basico implements EstructuraBasico
     {
         Tablero tablero = pos.getPosicion();
         Pieza[][] config = tablero.getTablero();
-        Casilla des = mov.getCasillaDestino();
+        Casilla des = this.destino(mov);
         Renglon ren = des.getRenglon();
         Columna col = des.getColumna();
         int numRen = Transformacion.posicionRenglon(ren);
@@ -299,9 +309,9 @@ public class Basico implements EstructuraBasico
     {
         Tablero tablero = pos.getPosicion();
         Pieza[][] config = tablero.getTablero();
-        Casilla des = mov.getCasillaOrigen();
-        Renglon ren = des.getRenglon();
-        Columna col = des.getColumna();
+        Casilla ori = this.origen(mov);
+        Renglon ren = ori.getRenglon();
+        Columna col = ori.getColumna();
         int numRen = Transformacion.posicionRenglon(ren);
         int numCol = Transformacion.posicionColumna(col);
         Pieza pieza = config[numRen][numCol];
@@ -397,7 +407,7 @@ public class Basico implements EstructuraBasico
             for(int j = 0; j < movimientos.longitud(); j++)
             {
                 mov = movimientos.obtenElem(j);
-                des = mov.getCasillaDestino();
+                des = this.destino(mov);
                 if(des.equals(casRey))
                     return pred;
             }
@@ -473,7 +483,7 @@ public class Basico implements EstructuraBasico
                 Columna colOri = ori.getColumna();
                 int intColOri = Transformacion.posicionColumna(colOri);
 
-                Casilla des = mov.getCasillaDestino();
+                Casilla des = this.destino(mov);
                 Pieza vacia = new Pieza();
                 Renglon renDes = des.getRenglon();
                 int intRenDes = Transformacion.posicionRenglon(renDes);
@@ -490,13 +500,54 @@ public class Basico implements EstructuraBasico
     }
 
     /**
+     * Obtiene las casillas donde una pieza puede hacer hacke
+     * @param pos la configuración actual del tablero
+     * @param col el color del rey a hacer hacke
+     * @param pieza la pieza a la que se le va a verificar las casillas
+     */
+    public Lista<Casilla> casillasHacke(Posicion pos, Color col, Pieza pieza)
+    {
+        Lista<Casilla> casillasHacke = new Lista<Casilla>();
+        Lista<Casilla> casillas = this.buscaPiezas(pos, pieza);
+        Lista<Movimiento> movimientos = null;
+        Casilla ori = null;
+        Casilla des = null;
+        Pieza piezaOri = null;
+        Movimiento mov = null;
+        Predicado hacke = null;
+        Posicion actual = pos;
+        Tablero tab = pos.getPosicion();
+        Pieza[][] config = tab.getTablero();
+
+        for(int i = 0; i < casillas.longitud(); i++)
+        {
+            ori = casillas.obtenElem(i);
+            piezaOri = this.pieza(ori, pos);
+            movimientos = this.movimientoPieza(piezaOri, ori, config);
+            for(int j = 0; j < movimientos.longitud(); j++)
+            {
+                mov = movimientos.obtenElem(j);
+                this.realizaMovimiento(mov, actual);
+                hacke = this.hacke(actual, col);
+                if(hacke.getValor())
+                {
+                    des = this.destino(mov);
+                    casillasHacke.agrega(des);
+                }
+                actual = pos;
+            }
+        }
+        return casillasHacke;
+    }
+
+    /**
      * Busca piezas en específico en el tablero actual
      * @param pos la configuración actual del tablero
      * @param busca la pieza a buscar con sus respectivas propiedades
-     * @return una lista que contiene las listas que coincidan con las
-     *         especificaciones dadas
+     * @return una lista que contiene las casillas de las piezas que coincidan
+     *         con las especificaciones dadas
      */
-    private Lista<Casilla> buscaPiezas(Posicion pos, Pieza busca)
+    public Lista<Casilla> buscaPiezas(Posicion pos, Pieza busca)
     {
         String nom = busca.getNombre();
         Color col = busca.getColor();
@@ -533,8 +584,8 @@ public class Basico implements EstructuraBasico
      * @param col el color de las piezas buscar
      * @return una lista que contiene las casillas en las que se encuentran las piezas
      */
-    private Lista<Casilla> buscaPiezasColor(Posicion pos, Color col)
-    {
+     public Lista<Casilla> buscaPiezasColor(Posicion pos, Color col)
+     {
         Tablero tab = pos.getPosicion();
         Pieza[][] config = tab.getTablero();
         Casilla cas = null;
