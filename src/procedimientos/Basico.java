@@ -27,6 +27,19 @@ public class Basico implements EstructuraBasico
         Pieza piezaOri = pieza(casOri, pos);
         Predicado pred = null;
 
+        if(piezaOri.getLibre() || casOri.equals(casDes))
+        {
+            pred = new Predicado(false);
+            return pred;
+        }
+
+        if(piezaOri.getNombre().equals("Pawn"))
+        {
+            pred = this.posiblePeon(casOri, casDes);
+            if(!pred.getValor() || !piezaDes.getLibre())
+                return pred;
+        }
+
         Lista<Casilla> camino = camino(mov, pos);
 
         for(int i = 0; i < camino.longitud(); i++)
@@ -49,6 +62,27 @@ public class Basico implements EstructuraBasico
         {
             pred = new Predicado(false);
         }
+        return pred;
+    }
+
+    /**
+     * Método privado para ver si el movimiento de un peón es válido
+     * @param ori la casilla origen
+     * @param des la casilla destino
+     * @return un predicado con el valor de verdad falso si no es posible
+     *         el movimiento, verdadero en otro caso.
+     */
+    private Predicado posiblePeon(Casilla ori, Casilla des)
+    {
+        int renOri = ori.getRenglon().getNumero();
+        int renDes = des.getRenglon().getNumero();
+        Predicado pred = null;
+
+        renOri = renOri + 2;
+
+        pred = renOri < renDes ? new Predicado(false)
+                                : new Predicado(true);
+
         return pred;
     }
 

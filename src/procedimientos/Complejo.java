@@ -16,7 +16,7 @@ public class Complejo extends Basico implements EstructuraComplejo
     }
 
     /**
-     * Verifica que un movimiento sea factible con una posición dada
+     * Verif
      * @param mov el movimiento a realizar
      * @param pos la posicion actual de las piezas en el tablero
      * @return true si es factible, false en otro caso
@@ -63,10 +63,13 @@ public class Complejo extends Basico implements EstructuraComplejo
     public Predicado pinned(Movimiento mov, Posicion pos)
     {
         Predicado pinned = new Predicado(false);
-        Posicion actual = pos;
+        Tablero t = new Tablero(pos.getPosicion().getTablero());
+        Posicion actual = new Posicion(t);
+        System.out.println("pos = \n" + pos.getPosicion());
         Casilla ori = this.origen(mov);
         Pieza piezaOri = this.pieza(ori, actual);
-        this.realizaMovimiento(mov, pos);
+        this.realizaMovimiento(mov, actual);
+        System.out.println("act = \n" + actual.getPosicion());
         Predicado hacke = this.hacke(actual, piezaOri.getColor());
 
         if(hacke.getValor())
@@ -281,7 +284,7 @@ public class Complejo extends Basico implements EstructuraComplejo
      * Evalua una descripción actual de la partida
      * @param pos la configuración actual del tablero
      * @param col el color de las piezas del jugador actual
-     * @param variaciones los movimientos que se pueden realizar
+     * @param variacion los movimientos que se pueden realizar
      * @param evaluacion la lista que contiene la evaluación
      */
     public void evalua(Posicion pos, Color col, Lista<Movimiento> variacion,
