@@ -458,7 +458,8 @@ public class Basico implements EstructuraBasico
     */
     public Predicado hackeMate(Posicion pos, Color col)
     {
-        Posicion actual = pos;
+        Tablero t = new Tablero(pos.getPosicion().getTablero());
+        Posicion actual = new Posicion(t);
         Tablero tab = pos.getPosicion();
         Pieza[][] config = tab.getTablero();
         Predicado hackeMate = new Predicado(true);
@@ -549,7 +550,8 @@ public class Basico implements EstructuraBasico
         Pieza piezaOri = null;
         Movimiento mov = null;
         Predicado hacke = null;
-        Posicion actual = pos;
+        Tablero t = new Tablero(pos.getPosicion().getTablero());
+        Posicion actual = new Posicion(t);
         Tablero tab = pos.getPosicion();
         Pieza[][] config = tab.getTablero();
 

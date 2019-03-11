@@ -65,11 +65,9 @@ public class Complejo extends Basico implements EstructuraComplejo
         Predicado pinned = new Predicado(false);
         Tablero t = new Tablero(pos.getPosicion().getTablero());
         Posicion actual = new Posicion(t);
-        System.out.println("pos = \n" + pos.getPosicion());
         Casilla ori = this.origen(mov);
         Pieza piezaOri = this.pieza(ori, actual);
         this.realizaMovimiento(mov, actual);
-        System.out.println("act = \n" + actual.getPosicion());
         Predicado hacke = this.hacke(actual, piezaOri.getColor());
 
         if(hacke.getValor())
@@ -136,7 +134,7 @@ public class Complejo extends Basico implements EstructuraComplejo
         Pieza actual = null;
         Movimiento amove = null;
         hackes = capturas = null;
-
+        System.out.println(legales);
         for(int i = 0; i < legales.longitud(); i++)
         {
             amove = legales.obtenElem(i);
@@ -144,6 +142,7 @@ public class Complejo extends Basico implements EstructuraComplejo
             {
                 capturas.agrega(amove);
             }
+            System.out.println(pos.getPosicion());
             casillasHacke = this.casillasHacke(pos, this.otro(col), this.pieza(this.origen(amove), pos));
             for(int j = 0; j < casillasHacke.longitud(); j++)
             {
@@ -161,17 +160,20 @@ public class Complejo extends Basico implements EstructuraComplejo
             for(int j = 0; j < 8; j++)
             {
                 actual = config[i][j];
-                material = (actual.getColor().equals(col))
-                            ? material + actual.valor()
-                            : material - actual.valor();
-                casAct = Transformacion.toCasilla(i,j);
-                casillasHacke = this.casillasHacke(pos, col, actual);
-                for(int k = 0; k < casillasHacke.longitud(); k++)
+                if(!actual.getLibre())
                 {
-                    auxCas = casillasHacke.obtenElem(k);
-                    if(casAct.equals(auxCas))
+                    material = (actual.getColor().equals(col))
+                                ? material + actual.valor()
+                                : material - actual.valor();
+                    casAct = Transformacion.toCasilla(i,j);
+                    casillasHacke = this.casillasHacke(pos, col, actual);
+                    for(int k = 0; k < casillasHacke.longitud(); k++)
                     {
-                        hackeDesde.agrega(casAct);
+                        auxCas = casillasHacke.obtenElem(k);
+                        if(casAct.equals(auxCas))
+                        {
+                            hackeDesde.agrega(casAct);
+                        }
                     }
                 }
             }
@@ -251,7 +253,7 @@ public class Complejo extends Basico implements EstructuraComplejo
     }
 
     /**
-     * Compara compara dos evaluaciones
+     * Compara dos evaluaciones
      * @param aValor primera evaluación
      * @param bValor segunda evaluación
      * @return true si la primera evaluación es mejor que la segunda,
