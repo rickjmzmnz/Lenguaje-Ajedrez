@@ -1,4 +1,5 @@
-package src.tipos;
+package tesis.lenguaje.ajedrez.tipos;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package src.procedimientos;
+package tesis.lenguaje.ajedrez.procedimientos;
 
-import src.tipos.*;
-import src.auxiliares.*;
-import src.estructuras.EstructuraBasico;
+import tesis.lenguaje.ajedrez.tipos.*;
+import tesis.lenguaje.ajedrez.auxiliares.*;
+import tesis.lenguaje.ajedrez.estructuras.EstructuraBasico;
 
 public class Basico implements EstructuraBasico
 {

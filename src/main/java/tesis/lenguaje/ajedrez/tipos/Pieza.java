@@ -1,4 +1,4 @@
-package src.tipos;
+package tesis.lenguaje.ajedrez.tipos;
 
 public class Pieza
 {

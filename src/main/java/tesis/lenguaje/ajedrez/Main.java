@@ -1,6 +1,8 @@
-import src.auxiliares.*;
-import src.procedimientos.*;
-import src.tipos.*;
+package tesis.lenguaje.ajedrez;
+
+import tesis.lenguaje.ajedrez.auxiliares.*;
+import tesis.lenguaje.ajedrez.procedimientos.*;
+import tesis.lenguaje.ajedrez.tipos.*;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;

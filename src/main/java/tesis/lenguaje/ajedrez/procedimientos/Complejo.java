@@ -1,8 +1,8 @@
-package src.procedimientos;
+package tesis.lenguaje.ajedrez.procedimientos;
 
-import src.tipos.*;
-import src.auxiliares.Transformacion;
-import src.estructuras.EstructuraComplejo;
+import tesis.lenguaje.ajedrez.tipos.*;
+import tesis.lenguaje.ajedrez.auxiliares.Transformacion;
+import tesis.lenguaje.ajedrez.estructuras.EstructuraComplejo;
 
 public class Complejo extends Basico implements EstructuraComplejo
 {

@@ -1,6 +1,6 @@
-package src.estructuras;
+package tesis.lenguaje.ajedrez.estructuras;
 
-import src.tipos.*;
+import tesis.lenguaje.ajedrez.tipos.*;
 
 public interface EstructuraComplejo
 {

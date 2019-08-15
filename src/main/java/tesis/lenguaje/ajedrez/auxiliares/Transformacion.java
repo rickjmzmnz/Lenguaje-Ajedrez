@@ -1,6 +1,6 @@
-package src.auxiliares;
+package tesis.lenguaje.ajedrez.auxiliares;
 
-import src.tipos.*;
+import tesis.lenguaje.ajedrez.tipos.*;
 
 public class Transformacion
 {

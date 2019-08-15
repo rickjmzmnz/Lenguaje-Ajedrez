@@ -1,7 +1,7 @@
-package src.auxiliares;
+package tesis.lenguaje.ajedrez.auxiliares;
 
-import src.tipos.*;
-import src.auxiliares.Transformacion;
+import tesis.lenguaje.ajedrez.tipos.*;
+import tesis.lenguaje.ajedrez.auxiliares.Transformacion;
 
 public class MovimientoPieza
 {
